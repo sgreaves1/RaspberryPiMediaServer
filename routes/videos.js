@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
-const fs = require('fs')
+const fs = require('fs');
+const path = require('path');
 
 router.get('/video', async function (req, res) {
     const path = '../../Downloads/Santa Clarita Diet/Season 3/Bumblebee.mp4'
@@ -35,6 +36,22 @@ router.get('/video', async function (req, res) {
         res.writeHead(200, head)
         fs.createReadStream(path).pipe(res)
     }
+});
+
+router.get('/videos', async function (req, res) {
+
+    const path = '../../../../media/pi/OS/Films';
+
+    let films = [];
+
+    fs.readdir(path, function (err, files){
+       files.forEach(function (file) {
+                films.push(file);
+           }
+       );
+    });
+
+    response.status(HttpStatus['OK']).json(films);
 });
 
 module.exports = router;
