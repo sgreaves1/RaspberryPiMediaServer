@@ -3,6 +3,7 @@ const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
 const pathToFilms = '../../../../media/pi/OS/Films';
+// const pathToFilms = '../Films';
 
 
 async function getFilmsList() {
@@ -50,7 +51,7 @@ router.get('/video', async function (req, res) {
     }
 });
 
-router.get('/videos', async function (req, res) {
+router.get('/', async function (req, res) {
     res.status(HttpStatus['OK']).json(await getFilmsList());
 });
 
