@@ -3,7 +3,7 @@ const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs')
 
-router.get('/video', async function (request, response) {
+router.get('/video', async function (req, res) {
     const path = '../../Downloads/Santa Clarita Diet/Season 3/Bumblebee.mp4'
     const stat = fs.statSync(path)
     const fileSize = stat.size
