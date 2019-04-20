@@ -43,13 +43,18 @@ router.get('/videos', async function (req, res) {
     let films = [];
 
     fs.readdir(pathToFilms, function (err, files){
-       files.forEach(function (file) {
+
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+
+        files.forEach(function (file) {
                 films.push(file);
            }
        );
     });
 
-    response.status(HttpStatus['OK']).json(films);
+    res.status(HttpStatus['OK']).json(films);
 });
 
 module.exports = router;
