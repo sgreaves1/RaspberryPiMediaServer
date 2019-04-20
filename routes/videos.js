@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
-const path = require('path');
+const pathToFilms = '../../../../media/pi/OS/Films';
 
 router.get('/video', async function (req, res) {
-    const path = '../../Downloads/Santa Clarita Diet/Season 3/Bumblebee.mp4'
-    const stat = fs.statSync(path)
+    const filmFile = pathToFilms + "/Bumblebee.mp4";
+    const stat = fs.statSync(filmFile);
     const fileSize = stat.size
     const range = req.headers.range
 
@@ -18,7 +18,7 @@ router.get('/video', async function (req, res) {
             : fileSize-1
 
         const chunksize = (end-start)+1
-        const file = fs.createReadStream(path, {start, end})
+        const file = fs.createReadStream(filmFile, {start, end})
         const head = {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
@@ -34,17 +34,15 @@ router.get('/video', async function (req, res) {
             'Content-Type': 'video/mp4',
         }
         res.writeHead(200, head)
-        fs.createReadStream(path).pipe(res)
+        fs.createReadStream(filmFile).pipe(res)
     }
 });
 
 router.get('/videos', async function (req, res) {
 
-    const path = '../../../../media/pi/OS/Films';
-
     let films = [];
 
-    fs.readdir(path, function (err, files){
+    fs.readdir(pathToFilms, function (err, files){
        files.forEach(function (file) {
                 films.push(file);
            }
