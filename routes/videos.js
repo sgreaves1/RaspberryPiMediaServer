@@ -4,6 +4,18 @@ const HttpStatus = require('literal-http-status');
 const fs = require('fs');
 const pathToFilms = '../../../../media/pi/OS/Films';
 
+
+async function getFilmsList() {
+    let films = [];
+
+    fs.readdirSync(pathToFilms).forEach(file =>  {
+                films.push(file);
+            }
+        );
+
+    return films;
+}
+
 router.get('/video', async function (req, res) {
     const filmFile = pathToFilms + "/Bumblebee.mp4";
     const stat = fs.statSync(filmFile);
@@ -39,22 +51,7 @@ router.get('/video', async function (req, res) {
 });
 
 router.get('/videos', async function (req, res) {
-
-    let films = [];
-
-    fs.readdir(pathToFilms, function (err, files){
-
-        if (err) {
-            return console.log('Unable to scan directory: ' + err);
-        }
-
-        files.forEach(function (file) {
-                films.push(file);
-           }
-       );
-    });
-
-    res.status(HttpStatus['OK']).json(films);
+    res.status(HttpStatus['OK']).json(await getFilmsList());
 });
 
 module.exports = router;
