@@ -15,7 +15,7 @@ app.get('/inputs/:id', function(req, res) {
 });
 
 app.get('/video', function(req, res) {
-    const path = '../Downloads/Santa Clarita Diet/Season 3/Episode5.mp4'
+    const path = '../../Downloads/Santa Clarita Diet/Season 3/Episode5.mp4'
     const stat = fs.statSync(path)
     const fileSize = stat.size
     const range = req.headers.range
