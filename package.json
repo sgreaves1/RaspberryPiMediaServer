@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "connect": "^3.6.6",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "literal-http-status": "^1.0.2"
   }
 }
