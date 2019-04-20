@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
+const fs = require('fs')
 
 router.get('/video', async function (request, response) {
     const path = '../../Downloads/Santa Clarita Diet/Season 3/Bumblebee.mp4'
@@ -34,18 +35,6 @@ router.get('/video', async function (request, response) {
         res.writeHead(200, head)
         fs.createReadStream(path).pipe(res)
     }
-});
-
-router.get('/gamercard', async function (request, response) {
-    response.status(HttpStatus['OK']).json(await xboxAPI.getXboxGamercard());
-});
-
-router.get('/presence', async function (request, response) {
-    response.status(HttpStatus['OK']).json(await xboxAPI.getXboxPresence());
-});
-
-router.get('/title-history', async function (request, response) {
-    response.status(HttpStatus['OK']).json(await xboxAPI.getXboxTitleHistory());
 });
 
 module.exports = router;
