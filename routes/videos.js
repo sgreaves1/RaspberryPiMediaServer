@@ -17,8 +17,8 @@ async function getFilmsList() {
     return films;
 }
 
-router.get('/video', async function (req, res) {
-    const filmFile = pathToFilms + "/Bumblebee.mp4";
+router.get('/:film', async function (req, res) {
+    const filmFile = pathToFilms + "/" + req.params.film;
     const stat = fs.statSync(filmFile);
     const fileSize = stat.size
     const range = req.headers.range
