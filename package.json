@@ -4,13 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "react-scripts start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "connect": "^3.6.6",
     "express": "^4.16.4",
-    "literal-http-status": "^1.0.2"
-  }
+    "literal-http-status": "^1.0.2",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-bootstrap-carousel": "^3.4.1",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^2.1.8",
+    "react-step-progress-bar": "^1.0.3",
+    "tar": "^4.4.8"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
