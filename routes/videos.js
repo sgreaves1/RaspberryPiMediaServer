@@ -5,6 +5,11 @@ const fs = require('fs');
 const pathToFilms = '../../../../media/pi/OS/Films';
 // const pathToFilms = '../Films';
 
+const contentTypes = [
+    {name: "mkv", contentType: "x-matroska"},
+    {name: "mp4", contentType: "video/mp4"}
+];
+
 
 async function getFilmsList() {
     let films = [];
