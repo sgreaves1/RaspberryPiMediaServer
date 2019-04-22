@@ -35,6 +35,8 @@ class App extends Component {
                 .then(json => {filmInfo.push(json)});
         }
 
+        this.setState({films: filmInfo});
+
     }
 
     render() {
