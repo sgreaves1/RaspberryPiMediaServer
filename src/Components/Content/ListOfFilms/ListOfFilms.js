@@ -14,7 +14,7 @@ export class ListOfFilms extends React.Component {
 
         return (
             <div class="list-films-box">
-                {value}
+                {items}
             </div>
         )
     }
