@@ -29,6 +29,7 @@ class App extends Component {
         {
             let name = value.substring(0, value.indexOf('.'));
 
+            console.log(index);
             console.log(value);
 
             fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&t=' + name)
