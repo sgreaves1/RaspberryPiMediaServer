@@ -25,7 +25,7 @@ class App extends Component {
     }
 
     render() {
-        console.log(films);
+        console.log(this.state.films);
 
         return (
             <div className="App">
