@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import {ListOfFilms} from "./Components/Content/ListOfFilms/ListOfFilms"
 
 class App extends Component {
 
     constructor() {
         super();
         this.state = {
-            films: [
-                {
-                    "file": null
-                }
-            ]
+            films: [ null ]
         };
     }
 
@@ -25,11 +22,9 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.films);
-
         return (
             <div className="App">
-                hello
+                <ListOfFilms films={this.state.films}/>
             </div>
         );
     }
