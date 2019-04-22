@@ -1,5 +1,5 @@
 import React from "react";
-import './Content.css';
+import './ListOfFilms.css';
 
 export class ListOfFilms extends React.Component {
     render() {
