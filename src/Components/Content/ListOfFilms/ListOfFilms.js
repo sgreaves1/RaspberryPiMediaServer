@@ -6,8 +6,9 @@ export class ListOfFilms extends React.Component {
     render() {
 
         const items = [];
-        for (const [value] of this.props.films.entries()) {
+        for (const [index, value] of this.props.films.entries()) {
             items.push(<div class="film-box">
+                {console.log(index)}
                 {value}
             </div>)
         }
