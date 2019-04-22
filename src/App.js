@@ -29,10 +29,11 @@ class App extends Component {
         {
             let name = value.substring(0, value.indexOf('.'));
 
-            console.log(index);
+            console.log(value);
+
             fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&t=' + name)
                 .then(res => res.json())
-                .then(json => {filmInfo.push(json)});
+                .then(json => {console.log(json); filmInfo.push(json)});
         }
 
         this.setState({films: filmInfo});
