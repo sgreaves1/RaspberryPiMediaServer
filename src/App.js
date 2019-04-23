@@ -23,7 +23,7 @@ class App extends Component {
             .then(json => {this.getFilmsInfo(json)});
     }
 
-    getFilmsInfo(films) {
+    async getFilmsInfo(films) {
         let filmInfo = [];
         for (const [index, value] of films.entries())
         {
@@ -32,9 +32,9 @@ class App extends Component {
             console.log(index);
             console.log(value);
 
-            fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&t=' + name)
+            await fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&t=' + name)
                 .then(res => res.json())
-                .then(json => {console.log(json); filmInfo.push(json)});
+                .then(json => {filmInfo.push(json)});
         }
 
         this.setState({films: filmInfo});
