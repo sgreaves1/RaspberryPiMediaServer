@@ -9,7 +9,10 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            films: [ {Title: null} ]
+            films: [ {
+                Title: null,
+                Poster: null,
+            } ]
         };
     }
 
