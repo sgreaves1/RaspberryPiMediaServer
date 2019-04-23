@@ -8,5 +8,9 @@
     float:left;
     margin-top: 10px;
     margin-left: 11px;
-    height: 12vh;
+    height: 20vh;
+}
+
+.film-poster {
+    height: 100%
 }

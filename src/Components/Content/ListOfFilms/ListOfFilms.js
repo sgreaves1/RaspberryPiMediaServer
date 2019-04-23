@@ -8,7 +8,7 @@ export class ListOfFilms extends React.Component {
         const items = [];
         for (const [index, value] of this.props.films.entries()) {
             items.push(<div className="film-box">
-                <img src={value.Poster}/>
+                <img className="film-poster" src={value.Poster}/>
             </div>)
         }
 

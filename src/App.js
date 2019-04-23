@@ -32,7 +32,7 @@ class App extends Component {
             console.log(index);
             console.log(value);
 
-            await fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&t=' + name)
+            await fetch('http://omdbapi.com/?plot=full&apikey='+ key +'&i=' + name)
                 .then(res => res.json())
                 .then(json => {filmInfo.push(json)});
         }
