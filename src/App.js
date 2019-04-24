@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {ListOfFilms} from "./Components/Content/ListOfFilms/ListOfFilms"
 
@@ -9,43 +9,75 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            films: [ {
+            films: [{
                 Title: null,
                 Poster: null,
-            } ]
+                imdbID: null,
+            }],
+            series: [{
+                show: {
+                    Title: null,
+                    Poster: null,
+                    imdbID: null,
+                }
+            }]
         };
     }
 
     componentDidMount() {
-        this.getFilms();
+        this.getVideos();
     }
 
-    getFilms() {
+    getVideos() {
         fetch('videos/')
             .then(res => res.json())
-            .then(json => {this.getFilmsInfo(json)});
+            .then(json => {
+                this.getVideosInfo(json)
+            });
     }
 
-    async getFilmsInfo(films) {
-        let filmInfo = [];
-        for (const [index, value] of films.entries())
-        {
+    async getVideosInfo(videos) {
+
+        for (const [index, value] of videos.entries()) {
             let name = value.substring(0, value.indexOf('.'));
 
             console.log(index);
             console.log(value);
 
-            if (name != "") {
+            if (name.startsWith("tt")) {
                 await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + name)
                     .then(res => res.json())
                     .then(json => {
-                        filmInfo.push(json)
+                        this.sortVideo(json);
                     });
             }
         }
+    }
 
-        this.setState({films: filmInfo});
+    async sortVideo(video) {
+        let films = this.state.films;
+        let series = this.state.series;
 
+        if (video.Type === "movie")
+            films.push(video);
+        else if (video.Type === "episode") {
+            let found = false;
+            for (let i = 0; i < series.length; i++) {
+                if (series[i].show.imdbID === video.seriesID) {
+                    found = true;
+                }
+            }
+
+            if (!found)
+                await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + video.seriesID)
+                    .then(res => res.json())
+                    .then(json => {
+                        series.push(json);
+                    });
+        }
+
+        this.setState({films: films});
+        this.setState({series: series});
     }
 
     render() {
