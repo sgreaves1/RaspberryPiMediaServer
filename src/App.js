@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {ListOfVideos} from "./Components/Content/ListOfVideos/ListOfVideos";
 import "bootstrap/dist/css/bootstrap.css";
+import {VideoInfoPanel} from "./Components/Content/VideoInfoPanel/VideoInfoPanel";
 
 const key = 'xxxx';
 
@@ -82,11 +83,21 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <div class="row">
+                    <div className="col">
+                        <VideoInfoPanel/>
+                    </div>
+                </div>
+
                 <div class="row videoRow">
-                    <ListOfVideos videos={this.state.films}/>
+                    <div class="col">
+                        <ListOfVideos videos={this.state.films}/>
+                    </div>
                 </div>
                 <div class="row videoRow">
-                    <ListOfVideos videos={this.state.series}/>
+                    <div className="col">
+                        <ListOfVideos videos={this.state.series}/>
+                    </div>
                 </div>
             </div>
         );
