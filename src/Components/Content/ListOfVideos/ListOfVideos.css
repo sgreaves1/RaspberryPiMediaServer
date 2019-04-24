@@ -12,3 +12,7 @@
 .film-poster {
     height: 100%
 }
+
+.film-poster:hover {
+    opacity: 0.2;
+}
