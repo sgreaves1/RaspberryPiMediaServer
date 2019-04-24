@@ -1,12 +1,12 @@
 import React from "react";
-import './ListOfFilms.css';
+import './ListOfVideos.css';
 
-export class ListOfFilms extends React.Component {
+export class ListOfVideos extends React.Component {
 
     render() {
 
         const items = [];
-        for (const [index, value] of this.props.films.entries()) {
+        for (const [index, value] of this.props.videos.entries()) {
             items.push(<div className="film-box">
                 <img className="film-poster" src={value.Poster}/>
             </div>)

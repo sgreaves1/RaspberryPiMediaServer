@@ -1,13 +1,11 @@
 .list-films-box {
-    border: 1px solid white;
     color: white;
+    margin: 5px;
 }
 
 .film-box {
-    border: 1px solid white;
     float:left;
-    margin-top: 10px;
-    margin-left: 11px;
+    margin: 5px;
     height: 20vh;
 }
 

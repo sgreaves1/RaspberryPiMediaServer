@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import {ListOfFilms} from "./Components/Content/ListOfFilms/ListOfFilms"
+import {ListOfVideos} from "./Components/Content/ListOfVideos/ListOfVideos";
+import "bootstrap/dist/css/bootstrap.css";
 
 const key = 'xxxx';
 
@@ -16,9 +17,9 @@ class App extends Component {
             }],
             series: [{
                 show: {
-                    Title: null,
-                    Poster: null,
-                    imdbID: null,
+                Title: null,
+                Poster: null,
+                imdbID: null,
                 }
             }]
         };
@@ -63,7 +64,7 @@ class App extends Component {
         else if (video.Type === "episode") {
             let found = false;
             for (let i = 0; i < series.length; i++) {
-                if (series[i].show.imdbID === video.seriesID) {
+                if (series[i].imdbID === video.seriesID) {
                     found = true;
                 }
             }
@@ -83,7 +84,12 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <ListOfFilms films={this.state.films}/>
+                <div class="row videoRow">
+                    <ListOfVideos videos={this.state.films}/>
+                </div>
+                <div class="row videoRow">
+                    <ListOfVideos videos={this.state.series}/>
+                </div>
             </div>
         );
     }
