@@ -16,11 +16,9 @@ class App extends Component {
                 imdbID: null,
             }],
             series: [{
-                show: {
                 Title: null,
                 Poster: null,
                 imdbID: null,
-                }
             }]
         };
     }
