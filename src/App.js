@@ -10,6 +10,9 @@ class App extends Component {
 
     constructor() {
         super();
+
+        this.showSelectedVideo = this.showSelectedVideo.bind(this);
+
         this.state = {
             films: [{
                 Title: null,
@@ -20,12 +23,21 @@ class App extends Component {
                 Title: null,
                 Poster: null,
                 imdbID: null,
-            }]
+            }],
+            selectedVideo: {
+                Title: null,
+                Poster: null,
+                imdbID: null,
+            }
         };
     }
 
     componentDidMount() {
         this.getVideos();
+    }
+
+    showSelectedVideo(video) {
+        this.setState({selectedVideo: video});
     }
 
     getVideos() {
@@ -85,18 +97,18 @@ class App extends Component {
             <div className="App">
                 <div class="row">
                     <div className="col">
-                        <VideoInfoPanel/>
+                        <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
                     </div>
                 </div>
 
                 <div class="row videoRow">
                     <div class="col">
-                        <ListOfVideos videos={this.state.films}/>
+                        <ListOfVideos videos={this.state.films} showSelectedVideo={this.showSelectedVideo}/>
                     </div>
                 </div>
                 <div class="row videoRow">
                     <div className="col">
-                        <ListOfVideos videos={this.state.series}/>
+                        <ListOfVideos videos={this.state.series} showSelectedVideo={this.showSelectedVideo}/>
                     </div>
                 </div>
             </div>

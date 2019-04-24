@@ -4,10 +4,16 @@ import './VideoInfoPanel.css';
 export class VideoInfoPanel extends React.Component {
     render() {
         return (
-
-            <div class="row">
-                <div class="col">
-                    Hello
+            <div>
+                <div class="row">
+                    <div class="col">
+                        {this.props.selectedVideo.Title}
+                    </div>
+                </div>
+                <div class="row">
+                    <div className="col">
+                        {this.props.selectedVideo.Plot}
+                    </div>
                 </div>
             </div>
         )
