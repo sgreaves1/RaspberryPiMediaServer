@@ -6,15 +6,23 @@ export class VideoInfoPanel extends React.Component {
         return (
             <div>
                 <div class="row">
+                    <div class="col-1">
+                        <img class="poster" src={this.props.selectedVideo.Poster}/>
+                    </div>
                     <div class="col">
-                        {this.props.selectedVideo.Title}
+                        <div className="row">
+                            {this.props.selectedVideo.Title}
+                        </div>
+                        <div className="row">
+                            {this.props.selectedVideo.Plot}
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <video/>
                     </div>
                 </div>
-                <div class="row">
-                    <div className="col">
-                        {this.props.selectedVideo.Plot}
-                    </div>
-                </div>
+
             </div>
         )
     }
