@@ -4,7 +4,7 @@ import './VideoInfoPanel.css';
 export class VideoInfoPanel extends React.Component {
     render() {
 
-        let videoUrl = 'http://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?autoplay=1';
+        let videoUrl = 'http://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
 
         let video;
 
@@ -14,7 +14,7 @@ export class VideoInfoPanel extends React.Component {
         }
         else
         {
-            video = <iframe src={videoUrl} allow="autoplay; encrypted-media"/>;
+            video = <iframe frameBorder='0' src={videoUrl}/>;
         }
 
         return (
