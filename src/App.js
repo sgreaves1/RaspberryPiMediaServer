@@ -29,6 +29,7 @@ class App extends Component {
                 Title: null,
                 Poster: null,
                 imdbID: null,
+                youtubeKey: null,
             }
         };
     }
@@ -71,8 +72,13 @@ class App extends Component {
         let films = this.state.films;
         let series = this.state.series;
 
-        if (video.Type === "movie")
+        if (video.Type === "movie") {
+            await fetch('https://api.themoviedb.org/3/movie/'+ video.imdbID +'/videos?api_key=' + movieDBKey)
+                .then(res => res.json())
+                .then(json => {video.youtubeKey = json.results[0].key});
+
             films.push(video);
+        }
         else if (video.Type === "episode") {
             let found = false;
             for (let i = 0; i < series.length; i++) {
