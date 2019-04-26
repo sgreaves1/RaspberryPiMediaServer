@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import {VideoInfoPanel} from "./Components/Content/VideoInfoPanel/VideoInfoPanel";
 
 const key = 'xxxx';
+const movieDBKey = 'xxxx';
 
 class App extends Component {
 

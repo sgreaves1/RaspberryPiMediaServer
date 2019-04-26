@@ -54,7 +54,7 @@ For example:
 
 If i have the film `CaptainAmerica.mp4` It should be named `tt1843866.mp4`
 
-You can easily find the Id by navigating to the Imdb films webpage page. The Id is in the URL
+You can easily find the Id by navigating to the Imdb films webpage. The Id is in the URL
 
 `https://www.imdb.com/title/tt1843866/`
 
