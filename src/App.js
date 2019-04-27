@@ -75,7 +75,7 @@ class App extends Component {
         if (video.Type === "movie") {
             await fetch('https://api.themoviedb.org/3/movie/'+ video.imdbID +'/videos?api_key=' + movieDBKey)
                 .then(res => res.json())
-                .then(json => {video.youtubeKey = json.results[0].key});
+                .then(json => { if (json.results.length > 0) {video.youtubeKey = json.results[0].key}});
 
             films.push(video);
         }
