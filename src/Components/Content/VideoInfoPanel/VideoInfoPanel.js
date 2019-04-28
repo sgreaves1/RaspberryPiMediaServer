@@ -4,7 +4,7 @@ import './VideoInfoPanel.css';
 export class VideoInfoPanel extends React.Component {
     render() {
 
-        let videoUrl = 'http://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
+        let videoUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
 
         let video;
 
