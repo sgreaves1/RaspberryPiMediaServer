@@ -62,7 +62,7 @@ You can easily find the Id by navigating to the Imdb films webpage. The Id is in
 #### Backend Server
 * `localhost:3020/` - Displays a welcome message.
 * `localhost:3020/videos` - Returns 200 with an array of files in the videos folder.
-* `localhost:3020/{videoFileName}` - Streams the given video file.
+* `localhost:3020/videos/{videoFileName}` - Streams the given video file.
 
 ## Running The Tests
 
@@ -71,6 +71,15 @@ You can easily find the Id by navigating to the Imdb films webpage. The Id is in
 ## Contributing
 
 ## Contact Details
+
+If you have any suggestions or questions feel free to join the slack or discord servers for my projects.
+
+You can post them in the `#video-server` slack or discord channel, also you should check out the FAQ section as your question may already be answered.
+
+Discord invite [Link.](https://discord.gg/tz6sP69)
+
+Slack invite [Link.](https://join.slack.com/t/samsprogramming/shared_invite/enQtNTQxODMxNTMyMzQzLWU2NjlkN2E2NTY5NGU4NDE3YzQwNDNhMDI1YjQ1MGFhODU0YzVjM2I4ZWIzZDA4ZjhmODU0ZTljMTQwMzA4MTQ)
+
 
 ## FAQs
 

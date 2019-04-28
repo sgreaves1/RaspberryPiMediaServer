@@ -25,8 +25,8 @@ async function getFilmsList() {
 router.get('/:film', async function (req, res) {
     const filmFile = pathToFilms + "/" + req.params.film;
     const stat = fs.statSync(filmFile);
-    const fileSize = stat.size
-    const range = req.headers.range
+    const fileSize = stat.size;
+    const range = req.headers.range;
 
     if (range) {
         const parts = range.replace(/bytes=/, "").split("-")
