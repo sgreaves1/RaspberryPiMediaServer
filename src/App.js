@@ -100,13 +100,21 @@ class App extends Component {
     }
 
     render() {
+
+        let videoInfo;
+        if (this.state.selectedVideo.Title)
+        {
+            videoInfo = <div className="row">
+                <div className="col">
+                    <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
+                </div>
+            </div>;
+        }
+
         return (
             <div className="App">
-                <div class="row">
-                    <div className="col">
-                        <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
-                    </div>
-                </div>
+
+                {videoInfo}
 
                 <div class="row videoRow">
                     <div class="col">

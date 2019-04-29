@@ -20,8 +20,9 @@ export class VideoInfoPanel extends React.Component {
         return (
             <div>
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-1 container">
                         <img class="poster" src={this.props.selectedVideo.Poster}/>
+                        <button className="play-button">Play</button>
                     </div>
                     <div class="col">
                         <div className="row">
