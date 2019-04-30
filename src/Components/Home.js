@@ -38,6 +38,7 @@ export class Home extends Component {
 
     showSelectedVideo(video) {
         this.setState({selectedVideo: video});
+        this.props.updateVideoToPlay(video);
     }
 
     getVideos() {

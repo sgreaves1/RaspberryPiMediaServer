@@ -5,12 +5,31 @@ import {VideoPlayer} from './VideoPlayer'
 
 
 export class Main extends Component {
+
+    constructor() {
+        super();
+
+        this.updateVideoToPlay = this.updateVideoToPlay.bind(this);
+
+        this.state = {video: {Title:null}}
+    }
+
+    updateVideoToPlay(video) {
+        this.setState({video: video});
+    }
+
+    shouldComponentUpdate()
+    {
+        return false;
+    }
+
+
     render (){
         return (
             <main>
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route exact path='/video' component={VideoPlayer}/>
+                    <Route exact path='/' component={() => <Home updateVideoToPlay={this.updateVideoToPlay}/>}/>
+                    <Route exact path='/video' component={() => <VideoPlayer video={this.state.video}/>}/>
                 </Switch>
             </main>
         );

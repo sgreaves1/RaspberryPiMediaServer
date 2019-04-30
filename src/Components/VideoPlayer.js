@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 export class VideoPlayer extends Component {
     render() {
         return (
-            <div>Video Playing Time</div>
+            <div>Video Playing Time {this.props.video.Title}</div>
         );
     }
 }
