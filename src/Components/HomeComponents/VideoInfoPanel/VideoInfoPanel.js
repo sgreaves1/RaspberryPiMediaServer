@@ -1,4 +1,5 @@
 import React from "react";
+import {Route} from 'react-router-dom';
 import './VideoInfoPanel.css';
 
 export class VideoInfoPanel extends React.Component {
@@ -22,7 +23,9 @@ export class VideoInfoPanel extends React.Component {
                 <div class="row">
                     <div class="col-1 container">
                         <img class="poster" src={this.props.selectedVideo.Poster}/>
-                        <button className="play-button">Play</button>
+                        <Route render = {({ history }) => (
+                            <button className="play-button" onClick={() => history.push('/video')}>Play</button>
+                        )}/>
                     </div>
                     <div class="col">
                         <div className="row">
