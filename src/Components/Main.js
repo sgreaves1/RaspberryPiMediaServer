@@ -26,10 +26,10 @@ export class Main extends Component {
 
     render (){
         return (
-            <main>
+            <main className="videoPlayer">
                 <Switch>
                     <Route exact path='/' component={() => <Home updateVideoToPlay={this.updateVideoToPlay}/>}/>
-                    <Route exact path='/video' component={() => <VideoPlayer video={this.state.video}/>}/>
+                    <Route exact path='/video' component={() => <VideoPlayer className="videoPlayer" video={this.state.video}/>}/>
                 </Switch>
             </main>
         );
