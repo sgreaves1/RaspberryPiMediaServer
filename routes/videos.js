@@ -6,8 +6,8 @@ const pathToFilms = '../../../../media/pi/OS/Films';
 // const pathToFilms = '../Films';
 
 const contentTypes = [
-    {name: "mkv", contentType: "x-matroska"},
-    {name: "mp4", contentType: "video/mp4"}
+    {name: ".mkv", contentType: "x-matroska"},
+    {name: ".mp4", contentType: "video/mp4"}
 ];
 
 
@@ -22,8 +22,20 @@ async function getFilmsList() {
     return films;
 }
 
+function getContentType(filmType) {
+    for (let i =0;i<contentTypes.length;i++) {
+        if (contentTypes[i].name === filmType) {
+            return contentTypes[i].contentType;
+        }
+    }
+}
+
 router.get('/:film', async function (req, res) {
     const filmFile = pathToFilms + "/" + req.params.film;
+    const filmType = req.params.film.substring(req.params.film.indexOf('.'), req.params.film.length);
+    const contentType = getContentType(filmType);
+    console.log(filmType);
+    console.log(contentType);
     const stat = fs.statSync(filmFile);
     const fileSize = stat.size;
     const range = req.headers.range;
@@ -41,7 +53,7 @@ router.get('/:film', async function (req, res) {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
             'Content-Length': chunksize,
-            'Content-Type': 'video/mp4',
+            'Content-Type': contentType,
         }
 
         res.writeHead(206, head)
@@ -49,7 +61,7 @@ router.get('/:film', async function (req, res) {
     } else {
         const head = {
             'Content-Length': fileSize,
-            'Content-Type': 'video/mp4',
+            'Content-Type': contentType,
         }
         res.writeHead(200, head)
         fs.createReadStream(filmFile).pipe(res)
