@@ -53,7 +53,7 @@ export class Home extends Component {
 
         for (const [index, value] of videos.entries()) {
             let name = value.substring(0, value.indexOf('.'));
-
+            let videoFormat = value.substring(value.indexOf('.'), value.length);
             console.log(index);
             console.log(value);
 
@@ -61,15 +61,17 @@ export class Home extends Component {
                 await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + name)
                     .then(res => res.json())
                     .then(json => {
-                        this.sortVideo(json);
+                        this.sortVideo(json, videoFormat);
                     });
             }
         }
     }
 
-    async sortVideo(video) {
+    async sortVideo(video, videoFormat) {
         let films = this.state.films;
         let series = this.state.series;
+
+        video.videoFormat = videoFormat;
 
         if (video.Type === "movie") {
             await fetch('https://api.themoviedb.org/3/movie/'+ video.imdbID +'/videos?api_key=' + movieDBKey)

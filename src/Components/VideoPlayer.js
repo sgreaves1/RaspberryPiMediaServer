@@ -3,7 +3,7 @@ import './VideoPlayer.css';
 
 export class VideoPlayer extends Component {
     render() {
-        let videoUrl = 'http://localhost:3020/videos/' + this.props.video.imdbID + '.mp4';
+        let videoUrl = 'http://localhost:3020/videos/' + this.props.video.imdbID + this.props.video.videoFormat;
 
         let video = <iframe src={videoUrl} allowFullScreen='true' className="videoPlayer"/>;
 
