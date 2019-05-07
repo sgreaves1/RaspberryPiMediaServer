@@ -54,50 +54,75 @@ export class Home extends Component {
         for (const [index, value] of videos.entries()) {
             let name = value.substring(0, value.indexOf('.'));
             let videoFormat = value.substring(value.indexOf('.'), value.length);
-            console.log(index);
-            console.log(value);
 
             if (name.startsWith("tt")) {
-                await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + name)
-                    .then(res => res.json())
-                    .then(json => {
-                        this.sortVideo(json, videoFormat);
-                    });
+                let video = await this.getVideoInfo(name);
+                await this.sortVideo(video, videoFormat)
+
             }
         }
     }
 
     async sortVideo(video, videoFormat) {
-        let films = this.state.films;
-        let series = this.state.series;
-
-        video.videoFormat = videoFormat;
 
         if (video.Type === "movie") {
-            await fetch('https://api.themoviedb.org/3/movie/'+ video.imdbID +'/videos?api_key=' + movieDBKey)
-                .then(res => res.json())
-                .then(json => { if (json.results.length > 0) {video.youtubeKey = json.results[0].key}});
-
+            console.log(video.Type);
+            await this.getFirstTrailer(video.imdbID, video, 'movie');
+            video.videoFormat = videoFormat;
+            let films = this.state.films;
             films.push(video);
+            this.setState({films: films});
         }
         else if (video.Type === "episode") {
-            let found = false;
-            for (let i = 0; i < series.length; i++) {
-                if (series[i].imdbID === video.seriesID) {
-                    found = true;
-                }
-            }
+            console.log(video.Type);
 
-            if (!found)
-                await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + video.seriesID)
-                    .then(res => res.json())
-                    .then(json => {
-                        series.push(json);
-                    });
+            await this.seriesNotPresent(this.state.series, video.seriesID)
+                .then(() => this.getVideoInfo(video.seriesID))
+                .then(show => this.addShowId(show))
+                .then(show => this.getFirstTrailer(show.showid, show, 'tv'))
+                .then(video => {
+                    let series = this.state.series;
+                    series.push(video);
+                    this.setState({series: series});
+                });
         }
 
-        this.setState({films: films});
-        this.setState({series: series});
+    }
+
+    seriesNotPresent = (series, seriesId) => new Promise((resolve, reject) => {
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].imdbID === seriesId) {
+                console.log('present');
+                return reject(false);
+            }
+        }
+        console.log('notPresent');
+        return resolve(true);
+    });
+
+    async getFirstTrailer(id, show, type) {
+
+        return await fetch('https://api.themoviedb.org/3/' + type + '/' + id + '/videos?api_key=' + movieDBKey + '&language=en-US')
+            .then(res => res.json())
+            .then(json => {
+                {
+                    if (json.results.length > 0) {
+                        show.youtubeKey = json.results[0].key
+                    }
+                return show;
+                }
+            });
+    }
+
+    async getVideoInfo(imdbId) {
+        return await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + imdbId)
+            .then(res => res.json());
+    }
+
+    async addShowId(show) {
+        return await fetch('https://api.themoviedb.org/3/find/' + show.imdbID + '?api_key=' + movieDBKey + '&language=en-US&external_source=imdb_id')
+            .then(res => res.json())
+            .then(json => { show.showid = json.tv_results[0].id; return show});
     }
 
     render() {
