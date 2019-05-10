@@ -26,6 +26,7 @@ export class Home extends Component {
                 Poster: null,
                 imdbID: null,
                 youtubeKey: null,
+                Type: null,
             }
         };
     }
@@ -85,9 +86,19 @@ export class Home extends Component {
                 </div>
             </div>;
         }
+        let seriesSelection;
+        if (this.state.selectedVideo.Type === "series")
+        {
+            seriesSelection = <div className="row">
+                <div className="col">
+                    Its a series!
+                </div>
+            </div>
+        }
         return (
             <div className="App">
                 {videoInfo}
+                {seriesSelection}
 
                 <div class="row videoRow">
                     <div class="col">
