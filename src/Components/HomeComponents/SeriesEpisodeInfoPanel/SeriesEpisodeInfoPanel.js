@@ -7,14 +7,14 @@ export class SeriesEpisodeInfoPanel extends React.Component {
 
         const buttons = [];
         for (let i = 0; i < this.props.series.totalSeasons; i++) {
-            buttons.push(<div>
-                <button>Season {i+1}</button>
-            </div>)
+            buttons.push(<button>Season {i+1}</button>)
         }
 
         return (
-            <div>
-                {buttons}
+            <div className="row">
+                <div className="col">
+                    {buttons}
+                </div>
             </div>
         )
     }
