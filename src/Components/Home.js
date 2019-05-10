@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ListOfVideos} from "./HomeComponents/ListOfVideos/ListOfVideos";
 import {VideoInfoPanel} from "./HomeComponents/VideoInfoPanel/VideoInfoPanel";
+import {SeriesEpisodeInfoPanel} from "./HomeComponents/SeriesEpisodeInfoPanel/SeriesEpisodeInfoPanel";
 const movieHelper = require ('../Helpers/movieApis');
 
 export class Home extends Component {
@@ -91,7 +92,7 @@ export class Home extends Component {
         {
             seriesSelection = <div className="row">
                 <div className="col">
-                    Its a series!
+                    <SeriesEpisodeInfoPanel series={this.state.selectedVideo}/>
                 </div>
             </div>
         }
