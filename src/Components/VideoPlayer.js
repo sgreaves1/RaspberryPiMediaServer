@@ -8,9 +8,6 @@ export class VideoPlayer extends Component {
 
         return (
             <div className="videoDiv">
-                <a href={videoUrl}>
-                    Click here to play a video file
-                </a>
                 {video}
             </div>
         );
