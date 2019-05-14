@@ -54,6 +54,10 @@ async function getAllSeasons(showId, seasonsAmount) {
     for (let i = 0; i < seasonsAmount; i++) {
         let episodes = await getAllEpisodes(showId, i + 1);
 
+        for (let i = 0; i < episodes.length; i++) {
+            episodes[i].still_path = await appendStillPath(episodes[i].still_path);
+        }
+
         seasons.push({number: i+1, episodes: episodes});
     }
 
@@ -80,6 +84,10 @@ async function SetHaveEpisode(show, seasonNumber, episodeNumber) {
             }
         }
     }
+}
+
+async function appendStillPath(imageName) {
+    return "https://image.tmdb.org/t/p/original"+ imageName +"?api_key=" + movieDBKey;
 }
 
 export async function  getVideoInfo(imdbId) {
