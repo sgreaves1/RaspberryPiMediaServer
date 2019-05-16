@@ -2,9 +2,16 @@
     color: dimgray;
 }
 
-.cardBackground {
-    background-color: black;
-    border: 1px solid white;
+.dontHaveImage {
+    opacity: 0.2;
+}
+
+.cardImage {
+    width: 200px;
+}
+
+.cardImage:hover {
+    opacity: 0.2;
 }
 
 .play-episode-button {
@@ -18,7 +25,8 @@
     font-size: 16px;
     margin: 4px 2px;
     border-radius: 50%;
-    position: absolute;
-    top: 26%;
-    left: 30%;
+}
+
+.play-episode-button:hover {
+    opacity: 0.7;
 }
