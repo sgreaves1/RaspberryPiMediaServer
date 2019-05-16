@@ -52,22 +52,22 @@ async function getFirstTrailer(id, show, type) {
 async function getAllSeasons(showId, seasonsAmount) {
     let seasons = [];
     for (let i = 0; i < seasonsAmount; i++) {
-        let episodes = await getAllEpisodes(showId, i + 1);
+        let seasonInfo = await getSeasonInfo(showId, i + 1);
 
-        for (let i = 0; i < episodes.length; i++) {
-            episodes[i].still_path = await appendStillPath(episodes[i].still_path);
+        for (let i = 0; i < seasonInfo.episodes.length; i++) {
+            seasonInfo.episodes[i].still_path = await appendStillPath(seasonInfo.episodes[i].still_path);
         }
 
-        seasons.push({number: i+1, episodes: episodes});
+        seasons.push({number: i+1, overview: seasonInfo.overview, episodes: seasonInfo.episodes});
     }
 
     return seasons;
 }
 
-async function getAllEpisodes(showId, seasonNumber) {
+async function getSeasonInfo(showId, seasonNumber) {
     return await fetch('https://api.themoviedb.org/3/tv/' + showId + '/season/' + seasonNumber + '?api_key=' + movieDBKey + '&language=en-US')
         .then(res => res.json())
-        .then(json => {return json.episodes});
+        .then(json => {return json});
 }
 
 async function SetHaveEpisode(show, seasonNumber, episodeNumber) {

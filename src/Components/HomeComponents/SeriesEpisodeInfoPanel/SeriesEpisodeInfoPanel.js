@@ -11,7 +11,18 @@ export class SeriesEpisodeInfoPanel extends React.Component {
         const tabs = [];
         for (let i = 0; i < this.props.series.totalSeasons; i++) {
             let title = "Season " + (i+1);
-            tabs.push(<tab eventKey={i} title={title}><EpisodeList episodes={this.props.series.seasons[i].episodes}/></tab>)
+            tabs.push(<tab eventKey={i} title={title}>
+                <div className="scroll">
+                    <div className="row seasonOverview">
+                        <div className="col">
+                            {this.props.series.seasons[i].overview}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <EpisodeList episodes={this.props.series.seasons[i].episodes}/>
+                    </div>
+                </div>
+            </tab>)
         }
 
         return (
