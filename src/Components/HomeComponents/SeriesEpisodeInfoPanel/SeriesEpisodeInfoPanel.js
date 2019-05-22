@@ -11,6 +11,14 @@ export class SeriesEpisodeInfoPanel extends React.Component {
         this.state = {showEpisodes: true, showEpisodesButtonText: "Collapse"}
     }
 
+    componentDidUpdate(oldProps) {
+        const newProps = this.props
+        if(oldProps.series.Title !== newProps.series.Title) {
+            this.setState({showEpisodes: true, showEpisodesButtonText: "Collapse"})
+        }
+
+    }
+
     onMouseClick = () => {
 
         this.setState({showEpisodes: !this.state.showEpisodes});
@@ -53,7 +61,7 @@ export class SeriesEpisodeInfoPanel extends React.Component {
         return (
             <div className="row">
                 <div className="col">
-                    <Tabs>
+                    <Tabs onSelect={() => this.setState({showEpisodes: true, showEpisodesButtonText: "Collapse"})}>
                         {tabs}
                     </Tabs>
                 </div>
