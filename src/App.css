@@ -1,5 +1,6 @@
 .App {
     color: white;
+    overflow-y: auto;
 }
 
 .videoRow {
