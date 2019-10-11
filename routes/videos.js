@@ -55,7 +55,7 @@ router.get('/:film', async function (req, res) {
             : fileSize-1
 
         var chunksize = (end-start)+1
-        var maxChunk = 1;
+        var maxChunk = 1000;
         if (chunksize > maxChunk) {
             end = start + maxChunk - 1;
             chunksize = (end - start) + 1;
