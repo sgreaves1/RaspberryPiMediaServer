@@ -32,52 +32,52 @@ function getContentType(filmType) {
 
 router.get('/:film', async function (req, res) {
 
-    const filmFile = pathToFilms + "/" + req.params.film;
-    res.writeHead(200, {'Content-Type': 'video/mp4'});
-    var rs = fs.createReadStream(filmFile);
-    rs.pipe(res);
-
-
     // const filmFile = pathToFilms + "/" + req.params.film;
-    // const filmType = req.params.film.substring(req.params.film.indexOf('.'), req.params.film.length);
-    // const contentType = getContentType(filmType);
-    // console.log(filmType);
-    // console.log(contentType);
-    // const stat = fs.statSync(filmFile);
-    // const fileSize = stat.size;
-    // const range = req.headers.range;
-    //
-    // if (range) {
-    //     const parts = range.replace(/bytes=/, "").split("-")
-    //     const start = parseInt(parts[0], 10)
-    //     var end = parts[1]
-    //         ? parseInt(parts[1], 10)
-    //         : fileSize-1
-    //
-    //     var chunksize = (end-start)+1
-    //     var maxChunk = 1;
-    //     if (chunksize > maxChunk) {
-    //         end = start + maxChunk - 1;
-    //         chunksize = (end - start) + 1;
-    //     }
-    //     const file = fs.createReadStream(filmFile, {start, end})
-    //     const head = {
-    //         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-    //         'Accept-Ranges': 'bytes',
-    //         'Content-Length': chunksize,
-    //         'Content-Type': contentType,
-    //     }
-    //
-    //     res.writeHead(206, head)
-    //     file.pipe(res)
-    // } else {
-    //     const head = {
-    //         'Content-Length': fileSize,
-    //         'Content-Type': contentType,
-    //     }
-    //     res.writeHead(200, head)
-    //     fs.createReadStream(filmFile).pipe(res)
-    // }
+    // res.writeHead(200, {'Content-Type': 'video/mp4'});
+    // var rs = fs.createReadStream(filmFile);
+    // rs.pipe(res);
+
+
+    const filmFile = pathToFilms + "/" + req.params.film;
+    const filmType = req.params.film.substring(req.params.film.indexOf('.'), req.params.film.length);
+    const contentType = getContentType(filmType);
+    console.log(filmType);
+    console.log(contentType);
+    const stat = fs.statSync(filmFile);
+    const fileSize = stat.size;
+    const range = req.headers.range;
+
+    if (range) {
+        const parts = range.replace(/bytes=/, "").split("-")
+        const start = parseInt(parts[0], 10)
+        var end = parts[1]
+            ? parseInt(parts[1], 10)
+            : fileSize-1
+
+        var chunksize = (end-start)+1
+        var maxChunk = 1;
+        if (chunksize > maxChunk) {
+            end = start + maxChunk - 1;
+            chunksize = (end - start) + 1;
+        }
+        const file = fs.createReadStream(filmFile, {start, end})
+        const head = {
+            'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+            'Accept-Ranges': 'bytes',
+            'Content-Length': chunksize,
+            'Content-Type': contentType,
+        }
+
+        res.writeHead(206, head)
+        file.pipe(res)
+    } else {
+        const head = {
+            'Content-Length': fileSize,
+            'Content-Type': contentType,
+        }
+        res.writeHead(200, head)
+        fs.createReadStream(filmFile).pipe(res)
+    }
 });
 
 router.get('/', async function (req, res) {

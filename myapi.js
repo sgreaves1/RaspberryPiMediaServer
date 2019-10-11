@@ -15,4 +15,5 @@ app.use(bodyParser.json());
 app.use('/videos', videoRoute);
 
 app.listen(3020);
+
 console.log('App Server running at port 3020');
