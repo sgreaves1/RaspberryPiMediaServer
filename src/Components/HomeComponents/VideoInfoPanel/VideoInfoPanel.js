@@ -5,7 +5,10 @@ import './VideoInfoPanel.css';
 export class VideoInfoPanel extends React.Component {
     render() {
 
-        let videoUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
+        let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
+        let videoUrl = 'http://localhost:3020/videos/' + this.props.selectedVideo.imdbID + ".mp4";
+
+        console.log(videoUrl);
 
         let video;
 
@@ -15,7 +18,7 @@ export class VideoInfoPanel extends React.Component {
         }
         else
         {
-            video = <iframe frameBorder='0' src={videoUrl}/>;
+            video = <iframe frameBorder='0' src={trailerUrl}/>;
         }
 
         return (
