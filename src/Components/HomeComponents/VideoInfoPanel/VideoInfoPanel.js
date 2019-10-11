@@ -24,7 +24,7 @@ export class VideoInfoPanel extends React.Component {
                     <div class="col-1 container">
                         <img class="poster" src={this.props.selectedVideo.Poster}/>
                         <Route render = {({ history }) => (
-                            <button className="play-button" onClick={() => history.push('/video')}>Play</button>
+                            <a href={videoUrl}> <button className="play-button">Play</button> </a>
                         )}/>
                     </div>
                     <div class="col">
