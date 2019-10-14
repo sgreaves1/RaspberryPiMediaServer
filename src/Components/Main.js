@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Switch, Route } from 'react-router-dom'
 import {Home} from './Home'
-import {VideoPlayer} from './VideoPlayer'
 
 
 export class Main extends Component {
@@ -10,8 +9,6 @@ export class Main extends Component {
         super();
 
         this.updateVideoToPlay = this.updateVideoToPlay.bind(this);
-
-        this.state = {video: {Title:null}}
     }
 
     updateVideoToPlay(video) {
@@ -29,7 +26,6 @@ export class Main extends Component {
             <main className="videoPlayer">
                 <Switch>
                     <Route exact path='/' component={() => <Home updateVideoToPlay={this.updateVideoToPlay}/>}/>
-                    <Route exact path='/video' component={() => <VideoPlayer className="videoPlayer" video={this.state.video}/>}/>
                 </Switch>
             </main>
         );

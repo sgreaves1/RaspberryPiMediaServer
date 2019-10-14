@@ -2,13 +2,8 @@ const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
-const pathToFilms = '../../../../media/pi/OS/Films';
-// const pathToFilms = '../Films';
-
-const contentTypes = [
-    {name: ".mkv", contentType: "x-matroska"},
-    {name: ".mp4", contentType: "video/mp4"}
-];
+//const pathToFilms = '../../../../media/pi/OS/Films';
+const pathToFilms = 'Videos';
 
 
 async function getFilmsList() {
@@ -20,14 +15,6 @@ async function getFilmsList() {
         );
 
     return films;
-}
-
-function getContentType(filmType) {
-    for (let i =0;i<contentTypes.length;i++) {
-        if (contentTypes[i].name === filmType) {
-            return contentTypes[i].contentType;
-        }
-    }
 }
 
 router.get('/:film', async function (req, res) {
