@@ -19,9 +19,9 @@ export class MenuBar extends React.Component {
     render() {
         return (<div>
             <div>
-            <button onClick={() => this.ChangeSelection(movieHelper.SelectionType.all)}>Home</button>
-            <button onClick={() => this.ChangeSelection(movieHelper.SelectionType.movies)}>Movies</button>
-            <button onClick={() => this.ChangeSelection(movieHelper.SelectionType.series)}>Series</button>
+            <button className="FilterButtons" autoFocus onClick={() => this.ChangeSelection(movieHelper.SelectionType.all)}>Home</button>
+            <button className="FilterButtons" onClick={() => this.ChangeSelection(movieHelper.SelectionType.movies)}>Movies</button>
+            <button className="FilterButtons" onClick={() => this.ChangeSelection(movieHelper.SelectionType.series)}>Series</button>
             </div>
 
             <div className="Search">

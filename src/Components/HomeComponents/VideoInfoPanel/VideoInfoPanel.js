@@ -24,13 +24,13 @@ export class VideoInfoPanel extends React.Component {
         return (
             <div>
                 <div class="row">
-                    <div class="col-1 container">
+                    <div class="col-2 container">
                         <img class="poster" src={this.props.selectedVideo.Poster}/>
                         <Route render = {({ history }) => (
                             <a href={videoUrl}> <button className="play-button">Play</button> </a>
                         )}/>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <div className="row">
                             {this.props.selectedVideo.Title}
                         </div>
@@ -41,7 +41,7 @@ export class VideoInfoPanel extends React.Component {
 
 
 
-                    <div class="col-3 trailer">
+                    <div class="col-4 trailer">
                         {video}
                     </div>
                 </div>

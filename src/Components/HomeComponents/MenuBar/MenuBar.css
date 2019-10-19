@@ -1,5 +1,29 @@
 .Search {
+    padding-top: 5px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 80%;
 }
+
+.FilterButtons {
+    background-color: black;
+    color: gray;
+    border-color: black;
+    opacity: 0.5;
+}
+
+.FilterButtons:hover {
+    background-color: black;
+    color: white;
+    border-color: black;
+    opacity: 1;
+}
+
+.FilterButtons:focus {
+    background-color: black;
+    color: white;
+    border-color: black;
+    outline: none;
+    opacity: 1;
+}
+
