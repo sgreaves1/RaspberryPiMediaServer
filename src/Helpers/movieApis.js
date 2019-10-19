@@ -1,6 +1,12 @@
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const key = '43e4a901';
 
+export const SelectionType = {
+    all: 'all',
+    movies: 'movies',
+    series: 'series',
+};
+
 export async function sortVideo(video, videoFormat, films, series) {
 
     if (video.Type === "movie") {

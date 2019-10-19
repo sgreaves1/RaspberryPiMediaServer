@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {ListOfVideos} from "./HomeComponents/ListOfVideos/ListOfVideos";
 import {VideoInfoPanel} from "./HomeComponents/VideoInfoPanel/VideoInfoPanel";
 import {SeriesEpisodeInfoPanel} from "./HomeComponents/SeriesEpisodeInfoPanel/SeriesEpisodeInfoPanel";
+import {MenuBar} from "./HomeComponents/MenuBar/MenuBar";
 const movieHelper = require ('../Helpers/movieApis');
+
 
 export class Home extends Component {
 
@@ -28,7 +30,8 @@ export class Home extends Component {
                 imdbID: null,
                 youtubeKey: null,
                 Type: null,
-            }
+            },
+            selectionType: movieHelper.SelectionType.all
         };
     }
 
@@ -76,20 +79,55 @@ export class Home extends Component {
         }
     }
 
+    videoList() {
+        return <div className="row videoRow">
+            <div className="col">
+                <ListOfVideos videos={this.state.films} showSelectedVideo={this.showSelectedVideo}/>
+            </div>
+        </div>;
+    }
+
+    seriesList() {
+        return <div className="row videoRow">
+            <div className="col">
+                <ListOfVideos videos={this.state.series} showSelectedVideo={this.showSelectedVideo}/>
+            </div>
+        </div>;
+    }
+
+    changeSelection = (type) => {
+        console.log("Here");
+        this.setState({selectionType: type});
+    }
+
     render() {
 
         let videoInfo;
-        if (this.state.selectedVideo.Title)
-        {
+        let seriesSelection;
+        let videosList;
+        let seriesList;
+
+        switch (this.state.selectionType) {
+            case movieHelper.SelectionType.all:
+                videosList = this.videoList();
+                seriesList = this.seriesList();
+                break;
+            case movieHelper.SelectionType.movies:
+                videosList = this.videoList();
+                break;
+            case movieHelper.SelectionType.series:
+                seriesList = this.seriesList();
+                break;
+        }
+
+        if (this.state.selectedVideo.Title) {
             videoInfo = <div className="row">
                 <div className="col">
                     <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
                 </div>
             </div>;
         }
-        let seriesSelection;
-        if (this.state.selectedVideo.Type === "series")
-        {
+        if (this.state.selectedVideo.Type === "series") {
             seriesSelection = <div className="row">
                 <div className="col">
                     <SeriesEpisodeInfoPanel series={this.state.selectedVideo}/>
@@ -98,19 +136,11 @@ export class Home extends Component {
         }
         return (
             <div className="App">
+                <MenuBar ChangeSelectionType={this.changeSelection}/>
                 {videoInfo}
                 {seriesSelection}
-
-                <div class="row videoRow">
-                    <div class="col">
-                        <ListOfVideos videos={this.state.films} showSelectedVideo={this.showSelectedVideo}/>
-                    </div>
-                </div>
-                <div class="row videoRow">
-                    <div className="col">
-                        <ListOfVideos videos={this.state.series} showSelectedVideo={this.showSelectedVideo}/>
-                    </div>
-                </div>
+                {videosList}
+                {seriesList}
             </div>
         );
     }
