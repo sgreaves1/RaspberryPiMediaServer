@@ -4,8 +4,16 @@ const movieHelper = require ('../../../Helpers/movieApis');
 
 export class MenuBar extends React.Component {
 
+    componentDidMount() {
+        this.setState({search: ""});
+    }
+
     ChangeSelection = (type) => {
         this.props.ChangeSelectionType(type);
+    };
+
+    filterVideosText = (e) => {
+        this.props.filterVideos(e.target.value);
     };
 
     render() {
@@ -17,7 +25,7 @@ export class MenuBar extends React.Component {
             </div>
 
             <div className="Search">
-                <input type="text" placeholder="Search..."/>
+                <input type="text" placeholder="Search..." onChange={this.filterVideosText}/>
             </div>
         </div>);
     }

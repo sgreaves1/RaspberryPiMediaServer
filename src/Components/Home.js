@@ -19,6 +19,11 @@ export class Home extends Component {
                 Poster: null,
                 imdbID: null,
             }],
+            filteredFilms: [{
+                Title: null,
+                Poster: null,
+                imdbID: null,
+            }],
             series: [{
                 Title: null,
                 Poster: null,
@@ -67,6 +72,7 @@ export class Home extends Component {
                         let films = this.state.films;
                         films.push(result);
                         this.setState({films: films});
+                        this.setState({filteredFilms: films});
                     }
                     else if (result.Type === "series") {
                         let series = this.state.series
@@ -82,7 +88,7 @@ export class Home extends Component {
     videoList() {
         return <div className="row videoRow">
             <div className="col">
-                <ListOfVideos videos={this.state.films} showSelectedVideo={this.showSelectedVideo}/>
+                <ListOfVideos videos={this.state.filteredFilms} showSelectedVideo={this.showSelectedVideo}/>
             </div>
         </div>;
     }
@@ -98,7 +104,21 @@ export class Home extends Component {
     changeSelection = (type) => {
         console.log("Here");
         this.setState({selectionType: type});
-    }
+    };
+
+    filterVideos = (filterText) => {
+        if (filterText != "") {
+            let films = this.state.films.filter((film) => {
+                if (film.Title != null)
+                    return film.Title.toLowerCase().includes(filterText);
+            });
+
+            this.setState({filteredFilms: films});
+
+        } else {
+            this.setState({filteredFilms: this.state.films});
+        }
+    };
 
     render() {
 
@@ -136,7 +156,7 @@ export class Home extends Component {
         }
         return (
             <div className="App">
-                <MenuBar ChangeSelectionType={this.changeSelection}/>
+                <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos}/>
                 {videoInfo}
                 {seriesSelection}
                 {videosList}
