@@ -29,6 +29,11 @@ export class Home extends Component {
                 Poster: null,
                 imdbID: null,
             }],
+            filteredSeries: [{
+                Title: null,
+                Poster: null,
+                imdbID: null,
+            }],
             selectedVideo: {
                 Title: null,
                 Poster: null,
@@ -78,6 +83,7 @@ export class Home extends Component {
                         let series = this.state.series
                         series.push(result);
                         this.setState({series: series});
+                        this.setState({filteredSeries: series});
                     }
                 }
 
@@ -96,7 +102,7 @@ export class Home extends Component {
     seriesList() {
         return <div className="row videoRow">
             <div className="col">
-                <ListOfVideos videos={this.state.series} showSelectedVideo={this.showSelectedVideo}/>
+                <ListOfVideos videos={this.state.filteredSeries} showSelectedVideo={this.showSelectedVideo}/>
             </div>
         </div>;
     }
@@ -115,8 +121,16 @@ export class Home extends Component {
 
             this.setState({filteredFilms: films});
 
+            let series = this.state.series.filter((serie) => {
+                if (serie.Title != null)
+                    return serie.Title.toLowerCase().includes(filterText);
+            });
+
+            this.setState({filteredSeries: series});
+
         } else {
             this.setState({filteredFilms: this.state.films});
+            this.setState({filteredSeries: this.state.series});
         }
     };
 
