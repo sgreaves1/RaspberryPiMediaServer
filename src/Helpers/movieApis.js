@@ -90,9 +90,9 @@ async function SetHaveEpisode(show, seasonNumber, episodeNumber) {
     for (let i = 0; i < show.seasons.length; i++) {
         if (show.seasons[i].number === seasonNumber) {
             for (let j = 0; j < show.seasons[i].episodes.length; j++) {
-                console.log(show.seasons[i].episodes[i]);
-                if (show.seasons[i].episodes[i].episode_number === episodeNumber) {
-                    show.seasons[i].episodes[i].enabled = true;
+                console.log(show.seasons[i].episodes[j]);
+                if (show.seasons[i].episodes[j].episode_number === episodeNumber) {
+                    show.seasons[i].episodes[j].enabled = true;
                     return;
                 }
             }
