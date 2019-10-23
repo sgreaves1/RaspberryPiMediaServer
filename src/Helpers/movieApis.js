@@ -29,11 +29,11 @@ async function addEpisodeToSeries(series, video) {
         }
     }
     let show = await getVideoInfo(video.seriesID);
+    console.log(video);
+    console.log(show);
     show = await addShowId(show);
     show = await getFirstTrailer(show.showid, show, 'tv');
     show.seasons = await getAllSeasons(show.showid, show.totalSeasons);
-    console.log(video);
-    console.log(show);
     await SetHaveEpisode(show, video.Season, video.Episode);
     return show;
 }
