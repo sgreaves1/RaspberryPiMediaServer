@@ -8,8 +8,6 @@ export class VideoInfoPanel extends React.Component {
         let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1';
         let videoUrl = 'http://localhost:3020/videos/' + this.props.selectedVideo.imdbID + ".mp4";
 
-        console.log(videoUrl);
-
         let video;
 
         if (this.props.selectedVideo.youtubeKey === undefined | this.props.selectedVideo.youtubeKey === null)
@@ -38,8 +36,6 @@ export class VideoInfoPanel extends React.Component {
                             {this.props.selectedVideo.Plot}
                         </div>
                     </div>
-
-
 
                     <div class="col-4 trailer">
                         {video}

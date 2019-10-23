@@ -108,30 +108,51 @@ export class Home extends Component {
     }
 
     changeSelection = (type) => {
-        console.log("Here");
         this.setState({selectionType: type});
     };
 
-    filterVideos = (filterText) => {
-        if (filterText != "") {
-            let films = this.state.films.filter((film) => {
+    filterVideos = (filterText, genre, year) => {
+        let films;
+        let series;
+
+        if (filterText !== undefined && filterText !== "") {
+            films = this.state.films.filter((film) => {
                 if (film.Title != null)
                     return film.Title.toLowerCase().includes(filterText);
+                return null;
             });
 
-            this.setState({filteredFilms: films});
-
-            let series = this.state.series.filter((serie) => {
+            series = this.state.series.filter((serie) => {
                 if (serie.Title != null)
                     return serie.Title.toLowerCase().includes(filterText);
+                return null;
             });
 
-            this.setState({filteredSeries: series});
-
         } else {
-            this.setState({filteredFilms: this.state.films});
-            this.setState({filteredSeries: this.state.series});
+            films = this.state.films;
+            series =  this.state.series;
         }
+
+        if (genre !== "Genre") {
+            films = films.filter((film) => {
+                if (film.Title != null) {
+                    if (film.Genre.includes(genre))
+                        return film;
+                }
+                return null;
+            });
+
+            series = series.filter((series) => {
+                if (series.Title != null) {
+                    if (series.Genre.includes(genre))
+                        return series;
+                }
+                return null;
+            });
+        }
+
+        this.setState({filteredFilms: films});
+        this.setState({filteredSeries: series});
     };
 
     render() {
@@ -150,6 +171,10 @@ export class Home extends Component {
                 videosList = this.videoList();
                 break;
             case movieHelper.SelectionType.series:
+                seriesList = this.seriesList();
+                break;
+            default:
+                videosList = this.videoList();
                 seriesList = this.seriesList();
                 break;
         }
