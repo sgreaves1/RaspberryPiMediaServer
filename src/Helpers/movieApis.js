@@ -33,6 +33,7 @@ async function addEpisodeToSeries(series, video) {
     show = await getFirstTrailer(show.showid, show, 'tv');
     show.seasons = await getAllSeasons(show.showid, show.totalSeasons);
     console.log(video);
+    console.log(show);
     await SetHaveEpisode(show, video.Season, video.Episode);
     return show;
 }
@@ -80,6 +81,11 @@ async function getSeasonInfo(showId, seasonNumber) {
 async function SetHaveEpisode(show, seasonNumber, episodeNumber) {
     seasonNumber = parseInt(seasonNumber);
     episodeNumber = parseInt(episodeNumber);
+
+    console.log(seasonNumber);
+    console.log(episodeNumber);
+
+    console.log(show);
 
     for (let i = 0; i < show.seasons.length; i++) {
         if (show.seasons[i].number === seasonNumber) {
