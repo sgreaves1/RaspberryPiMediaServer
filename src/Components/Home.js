@@ -41,7 +41,8 @@ export class Home extends Component {
                 youtubeKey: null,
                 Type: null,
             },
-            selectionType: movieHelper.SelectionType.all
+            selectionType: movieHelper.SelectionType.all,
+            genres: []
         };
     }
 
@@ -62,6 +63,22 @@ export class Home extends Component {
             });
     }
 
+    getGenres(video) {
+        let i;
+        let genres = video.Genre.split(/,| /);
+
+        for (i = 0; i < genres.length; i++) {
+            if (!this.state.genres.includes(genres[i])) {
+                this.state.genres.push(genres[i]);
+                this.state.genres.sort(function(a, b){
+                    if(a < b) { return -1; }
+                    if(a > b) { return 1; }
+                    return 0;
+                });
+            }
+        }
+    }
+
     async getVideosInfo(videos) {
 
         for (const [index, value] of videos.entries()) {
@@ -70,6 +87,7 @@ export class Home extends Component {
 
             if (name.startsWith("tt")) {
                 let video = await movieHelper.getVideoInfo(name);
+                this.getGenres(video);
                 let result = await movieHelper.sortVideo(video, videoFormat, this.state.films, this.state.series);
 
                 if (result != null) {
@@ -195,7 +213,7 @@ export class Home extends Component {
         }
         return (
             <div className="App">
-                <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos}/>
+                <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos} genres={this.state.genres}/>
                 {videoInfo}
                 {seriesSelection}
                 {videosList}

@@ -44,6 +44,11 @@ export class MenuBar extends React.Component {
             marginRight: '5px'
         };
 
+        const dropdownGenres = [];
+        for (const [index, value] of this.props.genres.entries()) {
+            dropdownGenres.push(<Dropdown.Item key={index} onClick={(e) => this.onGenreChanged(e, value, this.state.search, this.state.year)}>{value}</Dropdown.Item>)
+        }
+
         let genreSelect = <Dropdown style={style}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
                 {this.state.selectedGenre}
@@ -51,8 +56,7 @@ export class MenuBar extends React.Component {
 
             <Dropdown.Menu>
                 {this.state.selectedGenre !== "Genre" ? <Dropdown.Item onClick={(e) => this.onGenreChanged(e, "Genre", this.state.search, this.state.year)}>All</Dropdown.Item> : null}
-                <Dropdown.Item onClick={(e) => this.onGenreChanged(e, "Action", this.state.search, this.state.year)}>Action</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={(e) => this.onGenreChanged(e, "Comedy", this.state.search, this.state.year)}>Comedy</Dropdown.Item>
+                {dropdownGenres}
             </Dropdown.Menu>
         </Dropdown>
 
