@@ -42,7 +42,8 @@ export class Home extends Component {
                 Type: null,
             },
             selectionType: movieHelper.SelectionType.all,
-            genres: []
+            genres: [],
+            years: []
         };
     }
 
@@ -79,6 +80,17 @@ export class Home extends Component {
         }
     }
 
+    getYear(video) {
+        if (!this.state.years.includes(video.Year)) {
+            this.state.years.push(video.Year);
+            this.state.years.sort(function(a, b){
+                if(a < b) { return 1; }
+                if(a > b) { return -1; }
+                return 0;
+            });
+        }
+    }
+
     async getVideosInfo(videos) {
 
         for (const [index, value] of videos.entries()) {
@@ -88,6 +100,7 @@ export class Home extends Component {
             if (name.startsWith("tt")) {
                 let video = await movieHelper.getVideoInfo(name);
                 this.getGenres(video);
+                this.getYear(video);
                 let result = await movieHelper.sortVideo(video, videoFormat, this.state.films, this.state.series);
 
                 if (result != null) {
@@ -169,6 +182,42 @@ export class Home extends Component {
             });
         }
 
+        console.log(year);
+        console.log(this.state.filteredFilms);
+        console.log(this.state.filteredSeries);
+        if (year !== "Year") {
+            films = films.filter((film) => {
+                if (film.Year != null) {
+                    if (film.Year === year)
+                        return film;
+                }
+                return null;
+            });
+
+            series = series.filter((series) => {
+                if (series.Year != null) {
+                    let earlyDate = parseInt(series.Year.slice(0,4));
+                    let lateDate = "";
+
+                    if (series.Year.length === 9) {
+                        lateDate = parseInt(series.Year.slice(5,9));
+                    }
+
+                    if (parseInt(year) >= earlyDate) {
+                        if (lateDate !== "") {
+                            if (parseInt(year) <= lateDate) {
+                                return series;
+                            }
+                        } else {
+                            return series;
+                        }
+                    }
+                }
+                return null;
+            });
+
+        }
+
         this.setState({filteredFilms: films});
         this.setState({filteredSeries: series});
     };
@@ -213,7 +262,7 @@ export class Home extends Component {
         }
         return (
             <div className="App">
-                <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos} genres={this.state.genres}/>
+                <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos} genres={this.state.genres} years={this.state.years}/>
                 {videoInfo}
                 {seriesSelection}
                 {videosList}

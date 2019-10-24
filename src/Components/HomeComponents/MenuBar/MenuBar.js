@@ -34,7 +34,7 @@ export class MenuBar extends React.Component {
     };
 
     onGenreChanged = (event, genre, search, year) => {
-        this.setState({selectedGenre: genre});
+        this.setState({selectedGenre: genre, selectedYear: year});
         this.props.filterVideos(search, genre, year);
     };
 
@@ -46,7 +46,12 @@ export class MenuBar extends React.Component {
 
         const dropdownGenres = [];
         for (const [index, value] of this.props.genres.entries()) {
-            dropdownGenres.push(<Dropdown.Item key={index} onClick={(e) => this.onGenreChanged(e, value, this.state.search, this.state.year)}>{value}</Dropdown.Item>)
+            dropdownGenres.push(<Dropdown.Item key={index} onClick={(e) => this.onGenreChanged(e, value, this.state.search, this.state.selectedYear)}>{value}</Dropdown.Item>);
+        }
+
+        const dropdownYears = [];
+        for (const [index, value] of this.props.years.entries()) {
+            dropdownYears.push(<Dropdown.Item key={index} onClick={(e) => this.onGenreChanged(e, this.state.selectedGenre, this.state.search, value)}>{value}</Dropdown.Item>);
         }
 
         let genreSelect = <Dropdown style={style}>
@@ -55,10 +60,10 @@ export class MenuBar extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                {this.state.selectedGenre !== "Genre" ? <Dropdown.Item onClick={(e) => this.onGenreChanged(e, "Genre", this.state.search, this.state.year)}>All</Dropdown.Item> : null}
+                {this.state.selectedGenre !== "Genre" ? <Dropdown.Item onClick={(e) => this.onGenreChanged(e, "Genre", this.state.search, this.state.selectedYear)}>All</Dropdown.Item> : null}
                 {dropdownGenres}
             </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown>;
 
         let yearSelect = <Dropdown style={style}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -66,10 +71,10 @@ export class MenuBar extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">2019</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">2018</Dropdown.Item>
+                {this.state.selectedYear !== "Year" ? <Dropdown.Item onClick={(e) => this.onGenreChanged(e, this.state.selectedGenre, this.state.search, "Year")}>All</Dropdown.Item> : null}
+                {dropdownYears}
             </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown>;
 
         return (<div>
             <div>

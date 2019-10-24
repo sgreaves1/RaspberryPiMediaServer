@@ -29,8 +29,6 @@ async function addEpisodeToSeries(series, video) {
         }
     }
     let show = await getVideoInfo(video.seriesID);
-    console.log(video);
-    console.log(show);
     show = await addShowId(show);
     show = await getFirstTrailer(show.showid, show, 'tv');
     show.seasons = await getAllSeasons(show.showid, show.totalSeasons);
@@ -41,7 +39,7 @@ async function addEpisodeToSeries(series, video) {
 async function addShowId(show) {
     return await fetch('https://api.themoviedb.org/3/find/' + show.imdbID + '?api_key=' + movieDBKey + '&language=en-US&external_source=imdb_id')
         .then(res => res.json())
-        .then(json => { console.log(json); console.log(show.showid); show.showid = json.tv_results[0].id; return show});
+        .then(json => {show.showid = json.tv_results[0].id; return show});
 }
 
 async function getFirstTrailer(id, show, type) {
@@ -82,15 +80,9 @@ async function SetHaveEpisode(show, seasonNumber, episodeNumber) {
     seasonNumber = parseInt(seasonNumber);
     episodeNumber = parseInt(episodeNumber);
 
-    console.log(seasonNumber);
-    console.log(episodeNumber);
-
-    console.log(show);
-
     for (let i = 0; i < show.seasons.length; i++) {
         if (show.seasons[i].number === seasonNumber) {
             for (let j = 0; j < show.seasons[i].episodes.length; j++) {
-                console.log(show.seasons[i].episodes[j]);
                 if (show.seasons[i].episodes[j].episode_number === episodeNumber) {
                     show.seasons[i].episodes[j].enabled = true;
                     return;
