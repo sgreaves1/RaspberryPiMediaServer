@@ -33,21 +33,26 @@ export class VideoInfoPanel extends React.Component {
             };
         }
 
-        let imdbRating;
-        let rottenTomatosRating;
-        let metaCritic;
+        let imdbRatingValue = 'None';
+        let rottenTomatosRatingValue = 'None';
+        let metaCriticValue = 'None';
 
-        if (this.props.selectedVideo.Ratings[0].Value) {
-            imdbRating = <img data-tip={this.props.selectedVideo.Ratings[0].Value} className="imdbLink" src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png" alt="IMDB"/>;
+        if (this.props.selectedVideo.Ratings[0]) {
+            imdbRatingValue = this.props.selectedVideo.Ratings[0].Value;
         }
 
         if (this.props.selectedVideo.Ratings[1].Value) {
-            rottenTomatosRating = <img data-tip={this.props.selectedVideo.Ratings[1].Value} className="imdbLink" src="https://img4.androidappsapk.co/300/c/4/3/com.pixelnet.rottentomatoes.png" alt="Rotten Tomatoes"/>;
+            rottenTomatosRatingValue = this.props.selectedVideo.Ratings[1].Value;
         }
 
         if (this.props.selectedVideo.Ratings[2]) {
-            metaCritic = <img data-tip={this.props.selectedVideo.Ratings[2].Value} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/1024px-Metacritic.svg.png" alt="Mega Critic"/>;
+            metaCriticValue = this.props.selectedVideo.Ratings[2].Value;
         }
+
+        let imdbRating = <img data-tip={imdbRatingValue} className="imdbLink" src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png" alt="IMDB"/>;
+        let rottenTomatosRating = <img data-tip={rottenTomatosRatingValue} className="imdbLink" src="https://img4.androidappsapk.co/300/c/4/3/com.pixelnet.rottentomatoes.png" alt="Rotten Tomatoes"/>;
+        let metaCritic = <img data-tip={metaCriticValue} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/1024px-Metacritic.svg.png" alt="Mega Critic"/>;
+
 
         return (
             <div style={divStyle}>
