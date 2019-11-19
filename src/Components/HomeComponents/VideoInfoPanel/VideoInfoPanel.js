@@ -2,8 +2,21 @@ import React from "react";
 import {Route} from 'react-router-dom';
 import './VideoInfoPanel.css';
 import ReactTooltip from 'react-tooltip'
+import posed from 'react-pose';
 
 export class VideoInfoPanel extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {isVisible: true}
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({ isVisible: !this.state.isVisible });
+        }, 1000);
+    }
+
     render() {
 
         let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
@@ -53,6 +66,10 @@ export class VideoInfoPanel extends React.Component {
         let rottenTomatosRating = <img data-tip={rottenTomatosRatingValue} className="imdbLink" src="https://img4.androidappsapk.co/300/c/4/3/com.pixelnet.rottentomatoes.png" alt="Rotten Tomatoes"/>;
         let metaCritic = <img data-tip={metaCriticValue} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/1024px-Metacritic.svg.png" alt="Mega Critic"/>;
 
+        const Box = posed.div({
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 }
+        });
 
         return (
             <div style={divStyle}>
@@ -90,5 +107,7 @@ export class VideoInfoPanel extends React.Component {
 
             </div>
         )
+        {/*<Box className="poster" pose={this.state.isVisible ? 'visible' : 'hidden'} background={this.props.selectedVideo.Poster}/>*/}
+
     }
 }
