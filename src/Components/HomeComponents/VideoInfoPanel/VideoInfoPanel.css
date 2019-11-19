@@ -5,6 +5,7 @@
 
 .trailer {
     margin-top: 10px;
+    height: 200%;
 }
 
 .play-button {
@@ -25,4 +26,9 @@
 
 .play-button:hover {
     opacity: 0.7;
+}
+
+.imdbLink {
+    height: 25px;
+    margin-left: 7px;
 }

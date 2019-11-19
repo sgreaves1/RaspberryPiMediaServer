@@ -37,6 +37,7 @@ export class Home extends Component {
             selectedVideo: {
                 Title: null,
                 Poster: null,
+                Images: null,
                 imdbID: null,
                 youtubeKey: null,
                 Type: null,
@@ -65,17 +66,23 @@ export class Home extends Component {
     }
 
     getGenres(video) {
-        let i;
-        let genres = video.Genre.split(/,| /);
+        if (video.Genre) {
+            let i;
+            let genres = video.Genre.split(/,| /);
 
-        for (i = 0; i < genres.length; i++) {
-            if (!this.state.genres.includes(genres[i])) {
-                this.state.genres.push(genres[i]);
-                this.state.genres.sort(function(a, b){
-                    if(a < b) { return -1; }
-                    if(a > b) { return 1; }
-                    return 0;
-                });
+            for (i = 0; i < genres.length; i++) {
+                if (!this.state.genres.includes(genres[i])) {
+                    this.state.genres.push(genres[i]);
+                    this.state.genres.sort(function (a, b) {
+                        if (a < b) {
+                            return -1;
+                        }
+                        if (a > b) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                }
             }
         }
     }
@@ -99,6 +106,9 @@ export class Home extends Component {
 
             if (name.startsWith("tt")) {
                 let video = await movieHelper.getVideoInfo(name);
+                video.Images= await movieHelper.getImages(name);
+                if (video.Images && video.Images.backdrops)
+                    video.Backdrop = video.Images.backdrops[0].file_path;
                 this.getGenres(video);
                 this.getYear(video);
                 let result = await movieHelper.sortVideo(video, videoFormat, this.state.films, this.state.series);
@@ -260,6 +270,7 @@ export class Home extends Component {
                 </div>
             </div>
         }
+
         return (
             <div className="App">
                 <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos} genres={this.state.genres} years={this.state.years}/>

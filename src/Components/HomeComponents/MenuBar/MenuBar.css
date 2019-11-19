@@ -5,6 +5,20 @@
     left: 75%;
 }
 
+.Discover {
+    padding-top: 5px;
+    position: absolute;
+    top: 0;
+    right: 50%;
+}
+
+.DiscoverButtons {
+    background-color: black;
+    color: gray;
+    border-color: black;
+    opacity: 0.5;
+}
+
 .FilterButtons {
     background-color: black;
     color: gray;
