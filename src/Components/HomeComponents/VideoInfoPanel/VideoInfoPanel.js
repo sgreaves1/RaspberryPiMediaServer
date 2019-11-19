@@ -41,7 +41,7 @@ export class VideoInfoPanel extends React.Component {
             imdbRatingValue = this.props.selectedVideo.Ratings[0].Value;
         }
 
-        if (this.props.selectedVideo.Ratings[1].Value) {
+        if (this.props.selectedVideo.Ratings[1]) {
             rottenTomatosRatingValue = this.props.selectedVideo.Ratings[1].Value;
         }
 
