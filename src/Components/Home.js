@@ -107,7 +107,7 @@ export class Home extends Component {
             if (name.startsWith("tt")) {
                 let video = await movieHelper.getVideoInfo(name);
                 video.Images= await movieHelper.getImages(name);
-                if (video.Images && video.Images.backdrops)
+                if (video.Images && video.Images.backdrops && video.Images.backdrops.length > 0)
                     video.Backdrop = video.Images.backdrops[0].file_path;
                 this.getGenres(video);
                 this.getYear(video);
