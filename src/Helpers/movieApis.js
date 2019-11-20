@@ -46,12 +46,12 @@ async function getFirstTrailer(id, show, type) {
     return await fetch('https://api.themoviedb.org/3/' + type + '/' + id + '/videos?api_key=' + movieDBKey + '&language=en-US')
         .then(res => res.json())
         .then(json => {
-            {
-                if (json.results && json.results.length > 0) {
-                    show.youtubeKey = json.results[0].key
-                }
-                return show;
+
+            if (json.results && json.results.length > 0) {
+                show.youtubeKey = json.results[0].key
             }
+            return show;
+
         });
 }
 

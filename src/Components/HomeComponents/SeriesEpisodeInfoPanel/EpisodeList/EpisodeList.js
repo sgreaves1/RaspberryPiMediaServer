@@ -12,7 +12,7 @@ export class EpisodeList extends React.Component {
                     <div className="container-fluid">
                         <div className="row episodeInfo">
                             <div className="col-2">
-                                <img className="cardImage" src={this.props.episodes[i].still_path}/>
+                                <img className="cardImage" alt={this.props.episodes[i].name} src={this.props.episodes[i].still_path}/>
                             </div>
 
                             <div className="col">
@@ -38,7 +38,7 @@ export class EpisodeList extends React.Component {
                     <div className="container-fluid">
                         <div className="row episodeInfo">
                             <div className="col-2">
-                                <img className="cardImage dontHaveImage" src={this.props.episodes[i].still_path}/>
+                                <img className="cardImage dontHaveImage" alt={this.props.episodes[i].name} src={this.props.episodes[i].still_path}/>
                             </div>
                             <div className="col dontHave">
                                 <div className="row">

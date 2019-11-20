@@ -1,5 +1,4 @@
 import React from "react";
-import {Route} from 'react-router-dom';
 import './SeriesEpisodeInfoPanel.css';
 import Tabs from 'react-bootstrap/Tabs';
 import {EpisodeList} from "./EpisodeList/EpisodeList";

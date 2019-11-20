@@ -11,7 +11,7 @@ export class ListOfVideos extends React.Component {
         const items = [];
         for (const [index, value] of this.props.videos.entries()) {
             items.push(<div key={index} className="film-box">
-                <img className="film-poster" src={value.Poster} onClick={(e) => this.onMouseClick(e, value)}/>
+                <img className="film-poster" alt={value.poster} src={value.Poster} onClick={(e) => this.onMouseClick(e, value)}/>
             </div>)
         }
 

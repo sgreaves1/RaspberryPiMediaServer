@@ -76,7 +76,7 @@ export class VideoInfoPanel extends React.Component {
                 <div className="row">
                     <div className="col-2 container">
                         <div>{this.props.selectedVideo.Title}</div>
-                        <img className="poster" src={this.props.selectedVideo.Poster}/>
+                        <img className="poster" alt={this.props.selectedVideo.name} src={this.props.selectedVideo.Poster}/>
                         <Route render = {({ history }) => (
                             <a href={videoUrl}> <button className="play-button">Play</button> </a>
                         )}/>
@@ -107,7 +107,7 @@ export class VideoInfoPanel extends React.Component {
 
             </div>
         )
-        {/*<Box className="poster" pose={this.state.isVisible ? 'visible' : 'hidden'} background={this.props.selectedVideo.Poster}/>*/}
+        /*<Box className="poster" pose={this.state.isVisible ? 'visible' : 'hidden'} background={this.props.selectedVideo.Poster}/>*/
 
     }
 }
