@@ -47,7 +47,7 @@ async function getFirstTrailer(id, show, type) {
         .then(res => res.json())
         .then(json => {
             {
-                if (json.results.length > 0) {
+                if (json.results && json.results.length > 0) {
                     show.youtubeKey = json.results[0].key
                 }
                 return show;
