@@ -101,8 +101,9 @@ export async function  getVideoInfo(imdbId) {
         .then(res => res.json());
 }
 
-export async function getImages(imdbId) {
-    return await fetch('https://api.themoviedb.org/3/movie/' + imdbId + '/images?api_key=' + movieDBKey)
+export async function getImages(id, type) {
+    let uri = `https://api.themoviedb.org/3/${type}/${id}/images?api_key=${movieDBKey}`;
+    return await fetch(uri)
         .then(res => res.json());
 }
 

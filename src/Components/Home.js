@@ -106,7 +106,6 @@ export class Home extends Component {
 
             if (name.startsWith("tt")) {
                 let video = await movieHelper.getVideoInfo(name);
-                video.Images= await movieHelper.getImages(name);
                 if (video.Images && video.Images.backdrops && video.Images.backdrops.length > 0)
                     video.Backdrop = video.Images.backdrops[0].file_path;
                 this.getGenres(video);
@@ -115,13 +114,15 @@ export class Home extends Component {
 
                 if (result != null) {
                     if (result.Type === "movie") {
+                        result.Images= await movieHelper.getImages(result.imdbID, result.Type);
                         let films = this.state.films;
                         films.push(result);
                         this.setState({films: films});
                         this.setState({filteredFilms: films});
                     }
                     else if (result.Type === "series") {
-                        let series = this.state.series
+                        let series = this.state.series;
+                        result.Images= await movieHelper.getImages(result.showid, "tv");
                         series.push(result);
                         this.setState({series: series});
                         this.setState({filteredSeries: series});
