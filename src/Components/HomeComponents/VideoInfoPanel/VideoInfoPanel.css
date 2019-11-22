@@ -8,6 +8,15 @@
     height: 200%;
 }
 
+.title {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.plot {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .play-button {
     background-color: #4CAF50;
     border: none;
@@ -19,9 +28,6 @@
     font-size: 16px;
     margin: 4px 2px;
     border-radius: 100%;
-    position: absolute;
-    top: 26%;
-    left: 30%;
 }
 
 .play-button:hover {

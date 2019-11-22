@@ -18,7 +18,7 @@ export class VideoInfoPanel extends React.Component {
 
         let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
 
-        let videoUrl = 'http://localhost:3020/videos/' + this.props.selectedVideo.imdbID + ".mp4";
+        let videoUrl = 'http://192.168.1.18:3020/videos/' + this.props.selectedVideo.imdbID + ".mp4";
 
         let video;
 
@@ -74,35 +74,27 @@ export class VideoInfoPanel extends React.Component {
         return (
             <div style={divStyle}>
                 <div className="row">
-                    <div className="col-2 container">
-                        <div>{this.props.selectedVideo.Title}</div>
-                        <img className="poster" alt={this.props.selectedVideo.name} src={this.props.selectedVideo.Poster}/>
-                        <Route render = {({ history }) => (
-                            <a href={videoUrl}> <button className="play-button">Play</button> </a>
-                        )}/>
+                    <div className="col-6 container">
+                        <div className="title">{this.props.selectedVideo.Title}</div>
+                        {/*<img className="poster" alt={this.props.selectedVideo.name} src={this.props.selectedVideo.Poster}/>*/}
                         <div>
                             {imdbRating}
                             {rottenTomatosRating}
                             {metaCritic}
                             <ReactTooltip/>
                         </div>
-                    </div>
-                    <div className="col-6">
-                    </div>
-
-                    <div className="col-4">
-
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-7 container">
-                        <div>Trailer</div>
-                        <div className="trailer">
-                            {video}
+                        <div className="plot">{this.props.selectedVideo.Plot}</div>
+                        <div>
+                            <Route render = {({ history }) => (
+                                <a href={videoUrl}> <button className="play-button">Play</button> </a>
+                            )}/>
+                            <button>Trailer</button>
                         </div>
                     </div>
-                    <div className="col-5 container"/>
+
+                    <div className="col-6">
+
+                    </div>
                 </div>
 
             </div>
