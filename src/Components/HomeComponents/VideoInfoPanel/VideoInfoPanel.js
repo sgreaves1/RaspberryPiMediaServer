@@ -28,7 +28,7 @@ export class VideoInfoPanel extends React.Component {
         }
         else
         {
-            video = <iframe title="TrailerFrame" height={300} width={700} frameBorder='0' src={trailerUrl}/>;
+            // video = <iframe title="TrailerFrame" height={300} width={700} frameBorder='0' src={trailerUrl}/>;
         }
 
         let divStyle;

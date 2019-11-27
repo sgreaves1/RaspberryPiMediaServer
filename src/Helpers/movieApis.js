@@ -39,7 +39,8 @@ async function addEpisodeToSeries(series, video) {
 async function addShowId(show) {
     return await fetch('https://api.themoviedb.org/3/find/' + show.imdbID + '?api_key=' + movieDBKey + '&language=en-US&external_source=imdb_id')
         .then(res => res.json())
-        .then(json => {show.showid = json.tv_results[0].id; return show});
+        .then(json => { console.log(show);
+            show.showid = json.tv_results[0].id; return show});
 }
 
 async function getFirstTrailer(id, show, type) {
