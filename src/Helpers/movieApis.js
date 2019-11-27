@@ -39,15 +39,13 @@ async function addEpisodeToSeries(series, video) {
 async function addShowId(show) {
     return await fetch('https://api.themoviedb.org/3/find/' + show.imdbID + '?api_key=' + movieDBKey + '&language=en-US&external_source=imdb_id')
         .then(res => res.json())
-        .then(json => { console.log(show);
-            show.showid = json.tv_results[0].id; return show});
+        .then(json => {show.showid = json.tv_results[0].id; return show});
 }
 
 async function getFirstTrailer(id, show, type) {
     return await fetch('https://api.themoviedb.org/3/' + type + '/' + id + '/videos?api_key=' + movieDBKey + '&language=en-US')
         .then(res => res.json())
         .then(json => {
-
             if (json.results && json.results.length > 0) {
                 show.youtubeKey = json.results[0].key
             }
@@ -60,7 +58,7 @@ async function getAllSeasons(showId, seasonsAmount) {
     let seasons = [];
     for (let i = 0; i < seasonsAmount; i++) {
         let seasonInfo = await getSeasonInfo(showId, i + 1);
-
+        console.log(seasonInfo);
         for (let i = 0; i < seasonInfo.episodes.length; i++) {
             seasonInfo.episodes[i].still_path = await appendStillPath(seasonInfo.episodes[i].still_path);
         }
