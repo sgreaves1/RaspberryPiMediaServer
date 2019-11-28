@@ -292,6 +292,7 @@ export class Home extends Component {
                 {seriesSelection}
                 {videosList}
                 {seriesList}
+                {discoveriesList}
             </div>
         );
     }
