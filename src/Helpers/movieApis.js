@@ -5,6 +5,7 @@ export const SelectionType = {
     all: 'all',
     movies: 'movies',
     series: 'series',
+    discover: 'discover'
 };
 
 export async function sortVideo(video, videoFormat, films, series) {
