@@ -96,6 +96,10 @@ async function appendStillPath(imageName) {
     return "https://image.tmdb.org/t/p/original"+ imageName +"?api_key=" + movieDBKey;
 }
 
+export function imageUri(imageName) {
+    return `https://image.tmdb.org/t/p/original/${imageName}`;
+}
+
 export async function  getVideoInfo(imdbId) {
     return await fetch('http://omdbapi.com/?plot=full&apikey=' + key + '&i=' + imdbId)
         .then(res => res.json());

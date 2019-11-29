@@ -76,7 +76,6 @@ export class VideoInfoPanel extends React.Component {
                 <div className="row">
                     <div className="col-6 container">
                         <div className="title">{this.props.selectedVideo.Title}</div>
-                        {/*<img className="poster" alt={this.props.selectedVideo.name} src={this.props.selectedVideo.Poster}/>*/}
                         <div>
                             {imdbRating}
                             {rottenTomatosRating}

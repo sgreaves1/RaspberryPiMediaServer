@@ -1,0 +1,17 @@
+.large-image-box {
+    background-color: #ff1c68;
+}
+
+.small-image-box {
+    display: block;
+    background-color: white;
+}
+
+.large-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+}
