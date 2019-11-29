@@ -262,6 +262,7 @@ export class Home extends Component {
                 seriesList = this.seriesList();
                 break;
             case movieHelper.SelectionType.discover:
+                this.state.selectedVideo.Title = null;
                 discoveriesList = this.discoverList();
                 break;
             default:
