@@ -15,7 +15,7 @@ export class Discover extends React.Component {
     }
 
     async componentDidMount() {
-        let videos = await movieHelper.discoverPopular();
+        let videos = await movieHelper.discoverPopular(1);
 
         this.setState({videos: videos});
     }

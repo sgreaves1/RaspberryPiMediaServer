@@ -22,19 +22,21 @@ export async function sortVideo(video, videoFormat, films, series) {
 }
 
 async function addEpisodeToSeries(series, video) {
-
-    for (let i = 0; i < series.length; i++) {
-        if (series[i].imdbID === video.seriesID) {
-            await SetHaveEpisode(series[i], video.Season, video.Episode);
-            return null
+    if (video && video.seriesID && video.seriesID !== 'N/A') {
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].imdbID === video.seriesID) {
+                await SetHaveEpisode(series[i], video.Season, video.Episode);
+                return null
+            }
         }
+        let show = await getVideoInfo(video.seriesID);
+        show = await addShowId(show);
+        show = await getFirstTrailer(show.showid, show, 'tv');
+        show.seasons = await getAllSeasons(show.showid, show.totalSeasons);
+        await SetHaveEpisode(show, video.Season, video.Episode);
+        return show;
     }
-    let show = await getVideoInfo(video.seriesID);
-    show = await addShowId(show);
-    show = await getFirstTrailer(show.showid, show, 'tv');
-    show.seasons = await getAllSeasons(show.showid, show.totalSeasons);
-    await SetHaveEpisode(show, video.Season, video.Episode);
-    return show;
+    return null;
 }
 
 async function addShowId(show) {
@@ -111,8 +113,8 @@ export async function getImages(id, type) {
         .then(res => res.json());
 }
 
-export async function discoverPopular() {
-    let uri = `https://api.themoviedb.org/3/discover/movie?api_key=${movieDBKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`;
+export async function discoverPopular(page) {
+    let uri = `https://api.themoviedb.org/3/discover/movie?api_key=${movieDBKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
     return await fetch(uri)
         .then(res => res.json());
 }
