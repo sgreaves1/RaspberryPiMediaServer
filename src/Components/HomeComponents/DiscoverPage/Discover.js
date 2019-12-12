@@ -29,6 +29,8 @@ export class Discover extends React.Component {
     render() {
 
         let blockOfVideos;
+        let playButton;
+        let heartButton;
 
         if (this.state.videos && this.state.videos.results && this.state.videos.results.length > this.state.startingIndex + 6 && this.state.startingIndex >= 0) {
 
@@ -80,11 +82,23 @@ export class Discover extends React.Component {
                 height: '50vh',
             };
 
+
+            if (this.state.videos.results[this.state.startingIndex].Owned)
+                playButton = <img src="/src/Icons/play-fill.svg" width="32" height="32" title="Play"/>;
+
+            if (this.state.videos.results[this.state.startingIndex].HasBeenRequested)
+                heartButton = <img src="/src/Icons/heart-fill.svg" width="32" height="32" title="Requested"/>;
+            else
+                heartButton = <img src="/src/Icons/heart.svg" width="32" height="32" title="Request"/>;
+
+
             blockOfVideos = <div className="row block-of-videos">
                 <div className="col-6">
                     <div className="row">
                         <div className="col-12" style={background1}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex].original_title}</text>
+                            {heartButton}
+                            {playButton}
                         </div>
                     </div>
                     <div className="row">
