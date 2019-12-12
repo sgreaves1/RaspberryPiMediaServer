@@ -23,7 +23,7 @@ Once installed navigate to the `RaspberryPiMediaServer` folder and do an npm ins
 
 Next start the backend server with node.
 
-```node myapi.js```
+`node myapi.js` or `npm run backend`
 
 Navigate to `localhost:3020` to ensure the server is running.
 
@@ -36,7 +36,7 @@ Navigate to the `RaspberryPiMediaServer` folder in a new console window.
 
 Run the frontend with npm command.
 
-`npm start`
+`npm start` or `npm run frontend`
 
 Navigate to `localhost:3000` to ensure the front end is running.
 
