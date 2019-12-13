@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backend": "node myapi.js",
+    "backend": "node backend/myapi.js",
     "frontend": "react-scripts start",
     "start": "npm run backend && npm run frontend"
   },
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "bootstrap-icons": "^1.0.0-alpha",
     "connect": "^3.6.6",
     "express": "^4.16.4",
     "literal-http-status": "^1.0.2",

@@ -16,7 +16,6 @@ export class Discover extends React.Component {
 
     async componentDidMount() {
         let videos = await movieHelper.discoverPopular(1);
-
         this.setState({videos: videos});
     }
 
@@ -24,6 +23,13 @@ export class Discover extends React.Component {
         this.setState(prevState => {
             return {startingIndex: type === 'add' ? prevState.startingIndex + 6: prevState.startingIndex - 6}
         });
+    }
+
+    RequestClicked(videoIndex) {
+        let videos = this.state.videos;
+        videos.results[videoIndex].HasBeenRequested = !videos.results[videoIndex].HasBeenRequested;
+
+        this.setState({videos: videos});
     }
 
     render() {
@@ -84,12 +90,12 @@ export class Discover extends React.Component {
 
 
             if (this.state.videos.results[this.state.startingIndex].Owned)
-                playButton = <img src="/src/Icons/play-fill.svg" width="32" height="32" title="Play"/>;
+                playButton = <img className="discover-button" src="/src/Icons/play-fill.svg" width="32" height="32" title="Play"/>;
 
             if (this.state.videos.results[this.state.startingIndex].HasBeenRequested)
-                heartButton = <img src="/src/Icons/heart-fill.svg" width="32" height="32" title="Requested"/>;
+                heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart-fill.svg" width="32" height="32" title="Requested"/>;
             else
-                heartButton = <img src="/src/Icons/heart.svg" width="32" height="32" title="Request"/>;
+                heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart.svg" width="32" height="32" title="Request"/>;
 
 
             blockOfVideos = <div className="row block-of-videos">
@@ -97,16 +103,26 @@ export class Discover extends React.Component {
                     <div className="row">
                         <div className="col-12" style={background1}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex].original_title}</text>
-                            {heartButton}
-                            {playButton}
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-6" style={background2}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex + 1].original_title}</text>
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                         <div className="col-6" style={background3}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex + 2].original_title}</text>
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,14 +130,26 @@ export class Discover extends React.Component {
                     <div className="row">
                         <div className="col-6" style={background4}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex + 3].original_title}</text>
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                         <div className="col-6" style={background5}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex + 4].original_title}</text>
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12" style={background6}>
                             <text className="image-text">{this.state.videos.results[this.state.startingIndex + 5].original_title}</text>
+                            <div className="discover-buttons">
+                                {heartButton}
+                                {playButton}
+                            </div>
                         </div>
                     </div>
                 </div>
