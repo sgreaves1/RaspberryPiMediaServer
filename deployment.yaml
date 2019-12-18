@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raspberrypimediaserver-deployment
+  labels:
+    app: raspberrypimediaserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: raspberrypimediaserver
+  template:
+    metadata:
+      labels:
+        app: raspberrypimediaserver
+    spec:
+      containers:
+        - name: raspberrypimediaserver
+          image: raspberrypimediaserver-deployment
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3020

@@ -55,4 +55,10 @@ router.get('/', async function (req, res) {
     res.status(HttpStatus['OK']).json(await getFilmsList());
 });
 
+router.get('/new/', async function (req, res) {
+    res.status(HttpStatus['OK']).json(req.app.get('videos'));
+});
+
+
+
 module.exports = router;
