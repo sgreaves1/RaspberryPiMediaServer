@@ -6,6 +6,8 @@ const url = "https://api.themoviedb.org/3";
 
 async function sortVideoTypes(videos) {
 
+    console.log(videos);
+
     let info = { movies: [], People: [], shows: [], seasons: [], episodes: [] };
 
     info.movies = videos.filter(video => { return video.type === "movie"});
