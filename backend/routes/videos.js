@@ -17,6 +17,10 @@ async function getFilmsList() {
     return films;
 }
 
+router.get('/new/', async function (req, res) {
+    res.status(HttpStatus['OK']).json(req.app.get('videos'));
+});
+
 router.get('/:film', async function (req, res) {
 
     const filmFile = pathToFilms + "/" + req.params.film;
@@ -53,10 +57,6 @@ router.get('/:film', async function (req, res) {
 
 router.get('/', async function (req, res) {
     res.status(HttpStatus['OK']).json(await getFilmsList());
-});
-
-router.get('/new/', async function (req, res) {
-    res.status(HttpStatus['OK']).json(req.app.get('videos'));
 });
 
 
