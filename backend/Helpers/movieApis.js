@@ -10,8 +10,8 @@ async function sortVideoTypes(videos) {
 
     let info = { movies: [], People: [], shows: [], seasons: [], episodes: [] };
 
-    info.movies = videos.filter(video => { return video.type === "movie"});
-    info.episodes = videos.filter(video => { return video.type === "episode"});
+    info.movies = videos.filter(video => { if (video) return video.type === "movie"});
+    info.episodes = videos.filter(video => { if (video) return video.type === "episode"});
 
     return info;
 }
