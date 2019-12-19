@@ -58,11 +58,17 @@ export class Home extends Component {
         this.props.updateVideoToPlay(video);
     }
 
-    getVideos() {
+    async getVideos() {
         fetch('videos/')
             .then(res => res.json())
             .then(json => {
                 this.getVideosInfo(json)
+            });
+
+        fetch('videos/new/')
+            .then(res => res.json())
+            .then(json => {
+                this.getVideosInfo2(json)
             });
     }
 
@@ -100,44 +106,16 @@ export class Home extends Component {
     }
 
     async getVideosInfo(videos) {
-
-        for (const [index, value] of videos.entries()) {
-            let name = value.substring(0, value.indexOf('.'));
-            let videoFormat = value.substring(value.indexOf('.'), value.length);
-
-            if (name.startsWith("tt")) {
-                let video = await movieHelper.getVideoInfo(name);
-                if (video.Images && video.Images.backdrops && video.Images.backdrops.length > 0)
-                    video.Backdrop = video.Images.backdrops[0].file_path;
-                this.getGenres(video);
-                this.getYear(video);
-                let result = await movieHelper.sortVideo(video, videoFormat, this.state.films, this.state.series);
-
-                if (result != null) {
-                    if (result.Type === "movie") {
-                        result.Images= await movieHelper.getImages(result.imdbID, result.Type);
-                        let films = this.state.films;
-                        films.push(result);
-                        this.setState({films: films});
-                        this.setState({filteredFilms: films});
-                    }
-                    else if (result.Type === "series") {
-                        let series = this.state.series;
-                        result.Images= await movieHelper.getImages(result.showid, "tv");
-                        series.push(result);
-                        this.setState({series: series});
-                        this.setState({filteredSeries: series});
-                    }
-                }
-
-            }
+        for (const [index, value] of videos.movies.entries()) {
+            this.setState({films: videos.movies});
+            this.setState({filteredFilms: videos.movies});
         }
     }
 
     videoList() {
         return <div className="row videoRow">
             <div className="col">
-                <ListOfVideos videos={this.state.filteredFilms} showSelectedVideo={this.showSelectedVideo}/>
+                <ListOfVideos videos={this.state.filteredFilms2} showSelectedVideo={this.showSelectedVideo}/>
             </div>
         </div>;
     }

@@ -61,7 +61,7 @@ async function getAllSeasons(showId, seasonsAmount) {
     let seasons = [];
     for (let i = 0; i < seasonsAmount; i++) {
         let seasonInfo = await getSeasonInfo(showId, i + 1);
-        console.log(seasonInfo);
+
         for (let i = 0; i < seasonInfo.episodes.length; i++) {
             seasonInfo.episodes[i].still_path = await appendStillPath(seasonInfo.episodes[i].still_path);
         }
