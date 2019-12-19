@@ -107,8 +107,6 @@ export async function isOwned(video) {
     let owned = await fetch('videos/')
         .then(res => res.json());
 
-    let sam = "pies";
-
     return await owned.filter(e => e.split(".")[0] === video.imdb_id).length > 0;
 }
 

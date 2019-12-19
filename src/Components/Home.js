@@ -59,16 +59,10 @@ export class Home extends Component {
     }
 
     async getVideos() {
-        fetch('videos/')
+        fetch('videos/New/')
             .then(res => res.json())
             .then(json => {
                 this.getVideosInfo(json)
-            });
-
-        fetch('videos/new/')
-            .then(res => res.json())
-            .then(json => {
-                this.getVideosInfo2(json)
             });
     }
 
@@ -106,16 +100,14 @@ export class Home extends Component {
     }
 
     async getVideosInfo(videos) {
-        for (const [index, value] of videos.movies.entries()) {
-            this.setState({films: videos.movies});
-            this.setState({filteredFilms: videos.movies});
-        }
+        this.setState({films: videos.movies});
+        this.setState({filteredFilms: videos.movies});
     }
 
     videoList() {
         return <div className="row videoRow">
             <div className="col">
-                <ListOfVideos videos={this.state.filteredFilms2} showSelectedVideo={this.showSelectedVideo}/>
+                <ListOfVideos videos={this.state.filteredFilms} showSelectedVideo={this.showSelectedVideo}/>
             </div>
         </div>;
     }
