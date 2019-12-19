@@ -38,7 +38,7 @@ export class VideoInfoPanel extends React.Component {
         if (this.props.selectedVideo.Images) {
             divStyle = {
                 marginTop: '20px',
-                backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.Images.backdrops[backdropNumber].file_path})`,
+                backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.backdrops[backdropNumber].file_path})`,
                 backgroundSize: '110vh',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',

@@ -30,11 +30,13 @@ async function getVideoInfoByImdbIds(imdbIds) {
 
            if (results['movie_results'].length > 0) {
                results['movie_results'][0].type='movie';
+               results['movie_results'][0].imdb_id=id;
                return results['movie_results'][0];
            }
 
             if (results['tv_episode_results'].length > 0) {
                 results['tv_episode_results'][0].type='episode';
+                results['tv_episode_results'][0].imdb_id=id;
                 return results['tv_episode_results'][0];
             }
         });

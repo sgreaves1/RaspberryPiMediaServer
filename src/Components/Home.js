@@ -36,7 +36,7 @@ export class Home extends Component {
                 imdbID: null,
             }],
             selectedVideo: {
-                Title: null,
+                title: null,
                 Poster: null,
                 Images: null,
                 imdbID: null,
@@ -235,7 +235,7 @@ export class Home extends Component {
                 seriesList = this.seriesList();
                 break;
             case movieHelper.SelectionType.discover:
-                this.state.selectedVideo.Title = null;
+                this.state.selectedVideo.title = null;
                 discoveriesList = this.discoverList();
                 break;
             default:
@@ -244,7 +244,7 @@ export class Home extends Component {
                 break;
         }
 
-        if (this.state.selectedVideo.Title) {
+        if (this.state.selectedVideo.title) {
             videoInfo = <div className="row">
                 <div className="col">
                     <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
