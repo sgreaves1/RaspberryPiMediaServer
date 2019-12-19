@@ -33,7 +33,7 @@ export class VideoInfoPanel extends React.Component {
 
         let divStyle;
 
-        let backdropNumber = Math.round(Math.random() * this.props.selectedVideo.Images.backdrops.length -1 );
+        let backdropNumber = Math.round(Math.random() * this.props.selectedVideo.images.backdrops.length -1 );
 
         if (this.props.selectedVideo.Images) {
             divStyle = {

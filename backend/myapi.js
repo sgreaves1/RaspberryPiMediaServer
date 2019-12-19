@@ -3,7 +3,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let schedule = require('node-schedule');
 const {getVideoFiles, getRequestedVideos} = require ('./Helpers/fileReader');
-const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows} = require ('./Helpers/movieApis');
+const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages} = require ('./Helpers/movieApis');
 const {MongoClient} = require('mongodb');
 
 let app = express();
@@ -47,7 +47,9 @@ async function GetVideoData() {
         let videos = await getVideoInfoByImdbIds(films);
         videos = await sortVideoTypes(videos);
         videos.shows = await getShows(videos);
+        videos = await getBackdropsAndImages(videos);
         app.set('videos', videos);
+        console.log('Got video data!');
     } catch (error) {
         console.log("Error getting video data!");
         console.log(error);

@@ -4,6 +4,21 @@ const https = require('https');
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const url = "https://api.themoviedb.org/3";
 
+async function getImagesAndBackdrops(type, id) {
+    try {
+        let options = {
+            uri: `${url}/${type}/${id}/images?api_key=${movieDBKey}`,
+            json: true
+        };
+
+        return request(options);
+    }
+    catch (error) {
+        console.log(`Error finding images for ${id}, The Movie DB`);
+        console.log(error);
+    }
+}
+
 async function getShows(videos) {
     let showIds = videos.episodes.map(x => {return x.show_id});
 
@@ -154,4 +169,25 @@ async function getVideoByIds(videoId) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows};
+async function getBackdrops(videos, type) {
+    videos = videos.map(async function(video) {
+        video.images = await getImagesAndBackdrops(type, video.id);
+        return video;
+    });
+
+    return Promise.all(videos);
+}
+
+async function getBackdropsAndImages(videos) {
+    try {
+        videos.movies = await getBackdrops(videos.movies, "movie");
+        videos.shows = await getBackdrops(videos.shows, "tv");
+
+        return videos;
+    } catch (error) {
+        console.log(`Error finding images and backdrops, The Movie DB`);
+        console.log(error);
+    }
+}
+
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages};
