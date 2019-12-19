@@ -4,10 +4,17 @@ const https = require('https');
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const url = "https://api.themoviedb.org/3";
 
+async function getShows(videos) {
+    let showIds = videos.episodes.map(x => {return x.show_id});
+
+    let shows = showIds.map(async function (id) {
+        return await videoInfoByIdRequest("tv", id);
+    });
+
+    return Promise.all(shows);
+}
+
 async function sortVideoTypes(videos) {
-
-    console.log(videos);
-
     let info = { movies: [], People: [], shows: [], seasons: [], episodes: [] };
 
     info.movies = videos.filter(video => { if (video) return video.type === "movie"});
@@ -55,10 +62,10 @@ async function videoInfoByImdbIdRequest(video) {
     }
 }
 
-async function videoInfoByIdRequest(videoId) {
+async function videoInfoByIdRequest(type, videoId) {
     try {
         let options = {
-            uri: `${url}/movie/${videoId}?api_key=${movieDBKey}&language=en-US`,
+            uri: `${url}/${type}/${videoId}?api_key=${movieDBKey}&language=en-US`,
             json: true
         };
         return request(options);
@@ -137,7 +144,7 @@ async function getVideosImdbIds(videos) {
 
 async function getVideoByIds(videoId) {
     try {
-        return await videoInfoByIdRequest(videoId);
+        return await videoInfoByIdRequest("movie", videoId);
     }
     catch (error) {
         console.log(`Error finding videos, The Movie DB`);
@@ -145,4 +152,4 @@ async function getVideoByIds(videoId) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested};
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows};

@@ -3,7 +3,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let schedule = require('node-schedule');
 const {getVideoFiles, getRequestedVideos} = require ('./Helpers/fileReader');
-const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested} = require ('./Helpers/movieApis');
+const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows} = require ('./Helpers/movieApis');
 const {MongoClient} = require('mongodb');
 
 let app = express();
@@ -34,8 +34,10 @@ global.mongoClient = MongoClient.connect(`mongodb://localhost:27017/mediaserver`
 });
 
 GetVideoData();
+// GetDiscoveryData();
 
-// schedule.scheduleJob('10 * * * * *', GetVideos);
+// schedule.scheduleJob('10 * * * * *', GetVideoData);
+// schedule.scheduleJob('10 * * * * *', GetDiscoveryData);
 
 async function GetVideoData() {
     console.log('Getting video data!');
@@ -44,19 +46,23 @@ async function GetVideoData() {
         let films = await getVideoFiles();
         let videos = await getVideoInfoByImdbIds(films);
         videos = await sortVideoTypes(videos);
+        videos.shows = await getShows(videos);
         app.set('videos', videos);
-        // let requestedList = await getRequestedVideos();
-        // let popularityList = await getPopularVideos();
-        // popularityList = await getVideosImdbIds(popularityList);
-        // popularityList = await matchOwnedAndRequested(popularityList, films, requestedList);
-        // popularityList = popularityList.flat();
-        // save discover to db
-        let i = 0;
     } catch (error) {
         console.log("Error getting video data!");
         console.log(error);
     }
+}
 
-
+async function GetDiscoveryData() {
+    try {
+        let films = await getVideoFiles();
+        let requestedList = await getRequestedVideos();
+        let popularityList = await getPopularVideos();
+        popularityList = await getVideosImdbIds(popularityList);
+        popularityList = await matchOwnedAndRequested(popularityList, films, requestedList);
+        popularityList = popularityList.flat();
+        // save discover to db
+    } catch {}
 }
 
