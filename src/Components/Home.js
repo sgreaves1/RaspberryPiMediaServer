@@ -62,7 +62,8 @@ export class Home extends Component {
         fetch('videos/New/')
             .then(res => res.json())
             .then(json => {
-                this.getVideosInfo(json)
+                this.getVideosInfo(json);
+                this.getSeriesInfo(json);
             });
     }
 
@@ -102,6 +103,11 @@ export class Home extends Component {
     async getVideosInfo(videos) {
         this.setState({films: videos.movies});
         this.setState({filteredFilms: videos.movies});
+    }
+
+    async getSeriesInfo(videos) {
+        this.setState({series: videos.shows});
+        this.setState({filteredSeries: videos.shows});
     }
 
     videoList() {
@@ -172,9 +178,6 @@ export class Home extends Component {
             });
         }
 
-        console.log(year);
-        console.log(this.state.filteredFilms);
-        console.log(this.state.filteredSeries);
         if (year !== "Year") {
             films = films.filter((film) => {
                 if (film.Year != null) {
