@@ -3,6 +3,8 @@ const https = require('https');
 
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const url = "https://api.themoviedb.org/3";
+const openMDBKey = "43e4a901";
+const omdbUrl = "http://omdbapi.com/";
 
 async function getImagesAndBackdrops(type, id) {
     try {
@@ -64,6 +66,27 @@ async function getVideoInfoByImdbIds(imdbIds) {
     }
 }
 
+async function enrichVideoInfo(videos) {
+    try {
+
+    videos = videos.map(async function(video) {
+        if (video) {
+            if (video.imdb_id)
+                video.extraData = await videoFromOmdb(video.imdb_id);
+            else
+                video.extraData = null;
+        }
+        return video;
+    });
+
+    return Promise.all(videos);
+
+    } catch (error) {
+        console.log(`Error enriching videos, Open Movie Database`);
+        console.log(error);
+    }
+}
+
 async function videoInfoByImdbIdRequest(video) {
     try {
         let options = {
@@ -89,6 +112,19 @@ async function videoInfoByIdRequest(type, videoId) {
     }
     catch (error) {
         console.log(`Error finding ${video}, The Movie DB`);
+        console.log(error);
+    }
+}
+
+async function videoFromOmdb(id) {
+    try {
+        let options = {
+            uri: `${omdbUrl}/?i=${id}&plot=full&apikey=${openMDBKey}`,
+            json: true
+        };
+        return request(options);
+    } catch (error) {
+        console.log(`Error finding ${id}, Open Movie Database`);
         console.log(error);
     }
 }
@@ -190,4 +226,4 @@ async function getBackdropsAndImages(videos) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages};
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo};
