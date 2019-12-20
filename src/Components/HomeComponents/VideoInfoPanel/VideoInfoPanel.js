@@ -79,6 +79,7 @@ export class VideoInfoPanel extends React.Component {
             <div style={divStyle}>
                 <div className="row">
                     <div className="col-6 container">
+                        <button onClick={() => {this.props.hideSelectedVideo()}}>Back</button>
                         <div className="title">{this.props.selectedVideo.title}</div>
                         <div>
                             {imdbRating}

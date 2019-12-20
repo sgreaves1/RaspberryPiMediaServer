@@ -13,6 +13,7 @@ export class Home extends Component {
         super();
 
         this.showSelectedVideo = this.showSelectedVideo.bind(this);
+        this.hideSelectedVideo = this.hideSelectedVideo.bind(this);
 
         this.state = {
             films: [{
@@ -56,6 +57,18 @@ export class Home extends Component {
     showSelectedVideo(video) {
         this.setState({selectedVideo: video});
         this.props.updateVideoToPlay(video);
+    }
+
+    hideSelectedVideo() {
+        this.setState({selectedVideo: {
+            title: null,
+                Poster: null,
+                Images: null,
+                imdbID: null,
+                youtubeKey: null,
+                Type: null,
+        }});
+        this.props.updateVideoToPlay(null);
     }
 
     async getVideos() {
@@ -247,7 +260,7 @@ export class Home extends Component {
         if (this.state.selectedVideo.title) {
             videoInfo = <div className="row">
                 <div className="col">
-                    <VideoInfoPanel selectedVideo={this.state.selectedVideo}/>
+                    <VideoInfoPanel selectedVideo={this.state.selectedVideo} hideSelectedVideo={this.hideSelectedVideo}/>
                 </div>
             </div>;
         }
