@@ -66,6 +66,8 @@ async function GetDiscoveryData() {
         popularityList = await matchOwnedAndRequested(popularityList, films, requestedList);
         popularityList = popularityList.flat();
         // save discover to db
-    } catch {}
+    } catch (error) {
+
+    }
 }
 
