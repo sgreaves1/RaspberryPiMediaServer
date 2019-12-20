@@ -68,7 +68,6 @@ async function getVideoInfoByImdbIds(imdbIds) {
 
 async function enrichVideoInfo(videos) {
     try {
-
     videos = videos.map(async function(video) {
         if (video) {
             if (video.imdb_id)

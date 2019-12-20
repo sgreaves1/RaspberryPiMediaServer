@@ -50,16 +50,16 @@ export class VideoInfoPanel extends React.Component {
         let rottenTomatosRatingValue = 'None';
         let metaCriticValue = 'None';
 
-        if (this.props.selectedVideo.Ratings[0]) {
-            imdbRatingValue = this.props.selectedVideo.Ratings[0].Value;
+        if (this.props.selectedVideo.extraData.Ratings[0]) {
+            imdbRatingValue = this.props.selectedVideo.extraData.Ratings[0].Value;
         }
 
-        if (this.props.selectedVideo.Ratings[1]) {
-            rottenTomatosRatingValue = this.props.selectedVideo.Ratings[1].Value;
+        if (this.props.selectedVideo.extraData.Ratings[1]) {
+            rottenTomatosRatingValue = this.props.selectedVideo.extraData.Ratings[1].Value;
         }
 
-        if (this.props.selectedVideo.Ratings[2]) {
-            metaCriticValue = this.props.selectedVideo.Ratings[2].Value;
+        if (this.props.selectedVideo.extraData.Ratings[2]) {
+            metaCriticValue = this.props.selectedVideo.extraData.Ratings[2].Value;
         }
 
         let imdbRating = <img data-tip={imdbRatingValue} className="imdbLink" src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png" alt="IMDB"/>;
