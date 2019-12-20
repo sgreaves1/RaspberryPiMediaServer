@@ -16,29 +16,33 @@ export class VideoInfoPanel extends React.Component {
 
     render() {
 
-        let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
+        // let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
 
-        let videoUrl = 'http://192.168.1.18:3020/videos/' + this.props.selectedVideo.imdbID + ".mp4";
+        let videoUrl = 'http://192.168.1.18:3020/videos/' + this.props.selectedVideo.imdb_id + ".mp4";
 
         let video;
 
-        if (this.props.selectedVideo.youtubeKey === undefined | this.props.selectedVideo.youtubeKey === null)
-        {
-            video = null;
-        }
-        else
-        {
-            // video = <iframe title="TrailerFrame" height={300} width={700} frameBorder='0' src={trailerUrl}/>;
-        }
+        // if (this.props.selectedVideo.youtubeKey === undefined | this.props.selectedVideo.youtubeKey === null)
+        // {
+        //     video = null;
+        // }
+        // else
+        // {
+        //     // video = <iframe title="TrailerFrame" height={300} width={700} frameBorder='0' src={trailerUrl}/>;
+        // }
 
         let divStyle;
 
-        let backdropNumber = Math.round(Math.random() * this.props.selectedVideo.images.backdrops.length -1 );
+        // console.log(this.props.selectedVideo);
 
-        if (this.props.selectedVideo.Images) {
+        let number = this.props.selectedVideo.images.backdrops.length -1;
+
+        let backdropNumber = Math.round(Math.random() *  number);
+
+        if (this.props.selectedVideo.images) {
             divStyle = {
                 marginTop: '20px',
-                backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.backdrops[backdropNumber].file_path})`,
+                backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.images.backdrops[backdropNumber].file_path})`,
                 backgroundSize: '110vh',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -75,14 +79,14 @@ export class VideoInfoPanel extends React.Component {
             <div style={divStyle}>
                 <div className="row">
                     <div className="col-6 container">
-                        <div className="title">{this.props.selectedVideo.Title}</div>
+                        <div className="title">{this.props.selectedVideo.title}</div>
                         <div>
                             {imdbRating}
                             {rottenTomatosRating}
                             {metaCritic}
                             <ReactTooltip/>
                         </div>
-                        <div className="plot">{this.props.selectedVideo.Plot}</div>
+                        <div className="plot">{this.props.selectedVideo.overview}</div>
                         <div>
                             <Route render = {({ history }) => (
                                 <a href={videoUrl}> <button className="play-button">Play</button> </a>
