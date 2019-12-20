@@ -269,6 +269,9 @@ export class Home extends Component {
                     <VideoInfoPanel selectedVideo={this.state.selectedVideo} hideSelectedVideo={this.hideSelectedVideo}/>
                 </div>
             </div>;
+
+            videosList = null;
+            seriesList = null;
         }
         if (this.state.selectedVideo.Type === "series") {
             seriesSelection = <div className="row">
