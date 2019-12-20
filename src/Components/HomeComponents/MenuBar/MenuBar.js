@@ -85,7 +85,8 @@ export class MenuBar extends React.Component {
 
             <div className="Discover">
                 <button className="FilterButtons" onClick={() => this.ChangeSelection(movieHelper.SelectionType.discover)}>Discover</button>
-                <button className="FilterButtons">Suggest</button>
+                <button className="FilterButtons" onClick={() => this.ChangeSelection(movieHelper.SelectionType.requested)}>Coming Soon</button>
+                <button className="FilterButtons" onClick={() => this.ChangeSelection(movieHelper.SelectionType.suggest)}>Suggest</button>
             </div>
 
             <div className="Search">
