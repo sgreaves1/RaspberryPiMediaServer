@@ -163,8 +163,8 @@ export class Home extends Component {
             });
 
             series = this.state.series.filter((serie) => {
-                if (serie.title != null)
-                    return serie.title.toLowerCase().includes(filterText);
+                if (serie.name != null)
+                    return serie.name.toLowerCase().includes(filterText);
                 return null;
             });
 
