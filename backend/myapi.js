@@ -67,7 +67,10 @@ async function GetDiscoveryData() {
         popularityList = popularityList.flat();
         // save discover to db
     } catch (error) {
-
+        console.log("Error getting discovery data!");
+        console.log(error);
     }
 }
+
+
 

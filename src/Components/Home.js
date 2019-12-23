@@ -157,14 +157,14 @@ export class Home extends Component {
 
         if (filterText !== undefined && filterText !== "") {
             films = this.state.films.filter((film) => {
-                if (film.Title != null)
-                    return film.Title.toLowerCase().includes(filterText);
+                if (film.title != null)
+                    return film.title.toLowerCase().includes(filterText);
                 return null;
             });
 
             series = this.state.series.filter((serie) => {
-                if (serie.Title != null)
-                    return serie.Title.toLowerCase().includes(filterText);
+                if (serie.title != null)
+                    return serie.title.toLowerCase().includes(filterText);
                 return null;
             });
 

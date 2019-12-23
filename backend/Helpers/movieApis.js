@@ -24,7 +24,11 @@ async function getImagesAndBackdrops(type, id) {
 async function getShows(videos) {
     let showIds = videos.episodes.map(x => {return x.show_id});
 
-    let shows = showIds.map(async function (id) {
+    let uniqueShowIds = showIds.filter(function(elem, pos) {
+        return showIds.indexOf(elem) == pos;
+    });
+
+    let shows = uniqueShowIds.map(async function (id) {
         return await videoInfoByIdRequest("tv", id);
     });
 
