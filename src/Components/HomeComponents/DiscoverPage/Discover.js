@@ -15,7 +15,7 @@ export class Discover extends React.Component {
     }
 
     async componentDidMount() {
-        let videos = await movieHelper.discoverPopular(1);
+        let videos = await movieHelper.discoverPopular();
         this.setState({videos: videos});
     }
 
@@ -38,10 +38,10 @@ export class Discover extends React.Component {
         let playButton;
         let heartButton;
 
-        if (this.state.videos && this.state.videos.results && this.state.videos.results.length > this.state.startingIndex + 6 && this.state.startingIndex >= 0) {
+        if (this.state.videos && this.state.videos.length > this.state.startingIndex + 6 && this.state.startingIndex >= 0) {
 
             let background1 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -49,7 +49,7 @@ export class Discover extends React.Component {
             };
 
             let background2 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex + 1].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 1].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -57,7 +57,7 @@ export class Discover extends React.Component {
             };
 
             let background3 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex + 2].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 2].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -65,7 +65,7 @@ export class Discover extends React.Component {
             };
 
             let background4 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex + 3].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 3].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -73,7 +73,7 @@ export class Discover extends React.Component {
             };
 
             let background5 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex + 4].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 4].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -81,7 +81,7 @@ export class Discover extends React.Component {
             };
 
             let background6 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos.results[this.state.startingIndex + 5].backdrop_path})`,
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 5].backdrop_path})`,
                 backgroundSize: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right',
@@ -89,10 +89,10 @@ export class Discover extends React.Component {
             };
 
 
-            if (this.state.videos.results[this.state.startingIndex].Owned)
+            if (this.state.videos[this.state.startingIndex].Owned)
                 playButton = <img className="discover-button" src="/src/Icons/play-fill.svg" width="32" height="32" title="Play"/>;
 
-            if (this.state.videos.results[this.state.startingIndex].HasBeenRequested)
+            if (this.state.videos[this.state.startingIndex].HasBeenRequested)
                 heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart-fill.svg" width="32" height="32" title="Requested"/>;
             else
                 heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart.svg" width="32" height="32" title="Request"/>;
@@ -102,7 +102,7 @@ export class Discover extends React.Component {
                 <div className="col-6">
                     <div className="row">
                         <div className="col-12" style={background1}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}
@@ -111,14 +111,14 @@ export class Discover extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-6" style={background2}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex + 1].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex + 1].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}
                             </div>
                         </div>
                         <div className="col-6" style={background3}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex + 2].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex + 2].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}
@@ -129,14 +129,14 @@ export class Discover extends React.Component {
                 <div className="col-6">
                     <div className="row">
                         <div className="col-6" style={background4}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex + 3].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex + 3].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}
                             </div>
                         </div>
                         <div className="col-6" style={background5}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex + 4].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex + 4].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}
@@ -145,7 +145,7 @@ export class Discover extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-12" style={background6}>
-                            <text className="image-text">{this.state.videos.results[this.state.startingIndex + 5].original_title}</text>
+                            <text className="image-text">{this.state.videos[this.state.startingIndex + 5].original_title}</text>
                             <div className="discover-buttons">
                                 {heartButton}
                                 {playButton}

@@ -20,13 +20,6 @@ async function getMovieDetailsFromMoviedbid(video) {
     return video;
 }
 
-export async function isOwned(video) {
-    let owned = await fetch('videos/')
-        .then(res => res.json());
-
-    return await owned.filter(e => e.split(".")[0] === video.imdb_id).length > 0;
-}
-
 export function isRequested(video) {
 
 }
@@ -46,18 +39,11 @@ export async function getImages(id, type) {
         .then(res => res.json());
 }
 
-export async function discoverPopular(page) {
-        let uri = `https://api.themoviedb.org/3/discover/movie?api_key=${movieDBKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
-        let movies = await fetch(uri)
+export async function discoverPopular() {
+        let movies = await fetch('videos/discover')
             .then(res => res.json());
 
-        let results = await movies.results.map(async function (movie) {
-            movie = await getMovieDetailsFromMoviedbid(movie);
-            movie.Owned = await isOwned(movie);
-            // movie.HasBeenRequested = isRequested(movie);
-        });
-
-        return results;
+        return movies;
 }
 
 

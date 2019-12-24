@@ -34,7 +34,7 @@ global.mongoClient = MongoClient.connect(`mongodb://localhost:27017/mediaserver`
 });
 
 GetVideoData();
-// GetDiscoveryData();
+GetDiscoveryData();
 
 // schedule.scheduleJob('10 * * * * *', GetVideoData);
 // schedule.scheduleJob('10 * * * * *', GetDiscoveryData);
@@ -65,6 +65,7 @@ async function GetDiscoveryData() {
         popularityList = await getVideosImdbIds(popularityList);
         popularityList = await matchOwnedAndRequested(popularityList, films, requestedList);
         popularityList = popularityList.flat();
+        app.set('popularityList', popularityList)
         // save discover to db
     } catch (error) {
         console.log("Error getting discovery data!");

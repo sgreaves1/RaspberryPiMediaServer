@@ -21,6 +21,10 @@ router.get('/new/', async function (req, res) {
     res.status(HttpStatus['OK']).json(req.app.get('videos'));
 });
 
+router.get('/discover', async function (req, res) {
+    res.status(HttpStatus['OK']).json(req.app.get('popularityList'));
+});
+
 router.get('/:film', async function (req, res) {
 
     const filmFile = pathToFilms + "/" + req.params.film;
