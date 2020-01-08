@@ -1,5 +1,6 @@
 import React from "react";
 import './Discover.css';
+import {DiscoverPanel} from "../DiscoverPanel/DiscoverPanel";
 const movieHelper = require ('../../../Helpers/movieApis');
 
 
@@ -9,7 +10,7 @@ export class Discover extends React.Component {
         super(props);
 
         this.state = {
-            videos: {results: []},
+            videos: [],
             startingIndex: 0
         }
     }
@@ -20,136 +21,44 @@ export class Discover extends React.Component {
     }
 
     onclick(type){
+        console.log(this.state.startingIndex);
         this.setState(prevState => {
             return {startingIndex: type === 'add' ? prevState.startingIndex + 6: prevState.startingIndex - 6}
         });
     }
 
-    RequestClicked(videoIndex) {
-        let videos = this.state.videos;
-        videos.results[videoIndex].HasBeenRequested = !videos.results[videoIndex].HasBeenRequested;
-
-        this.setState({videos: videos});
-    }
-
     render() {
 
         let blockOfVideos;
-        let playButton;
-        let heartButton;
 
         if (this.state.videos && this.state.videos.length > this.state.startingIndex + 6 && this.state.startingIndex >= 0) {
-
-            let background1 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '50vh',
-            };
-
-            let background2 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 1].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '25vh',
-            };
-
-            let background3 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 2].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '25vh',
-            };
-
-            let background4 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 3].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '25vh',
-            };
-
-            let background5 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 4].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '25vh',
-            };
-
-            let background6 = {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.videos[this.state.startingIndex + 5].backdrop_path})`,
-                backgroundSize: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '50vh',
-            };
-
-
-            if (this.state.videos[this.state.startingIndex].Owned)
-                playButton = <img className="discover-button" src="/src/Icons/play-fill.svg" width="32" height="32" title="Play"/>;
-
-            if (this.state.videos[this.state.startingIndex].HasBeenRequested)
-                heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart-fill.svg" width="32" height="32" title="Requested"/>;
-            else
-                heartButton = <img onClick={this.RequestClicked.bind(this, this.state.startingIndex)} className="discover-button" src="/src/Icons/heart.svg" width="32" height="32" title="Request"/>;
-
 
             blockOfVideos = <div className="row block-of-videos">
                 <div className="col-6">
                     <div className="row">
-                        <div className="col-12" style={background1}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
-                        </div>
+                        <DiscoverPanel video={this.state.videos[this.state.startingIndex]} height="50vh"/>
                     </div>
                     <div className="row">
-                        <div className="col-6" style={background2}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex + 1].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
+                        <div className="col-6">
+                            <DiscoverPanel video={this.state.videos[this.state.startingIndex + 1]} height="25vh"/>
                         </div>
-                        <div className="col-6" style={background3}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex + 2].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
+                        <div className="col-6">
+                            <DiscoverPanel video={this.state.videos[this.state.startingIndex + 2]} height="25vh"/>
                         </div>
                     </div>
                 </div>
                 <div className="col-6">
                     <div className="row">
-                        <div className="col-6" style={background4}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex + 3].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
+                        <div className="col-6">
+                            <DiscoverPanel video={this.state.videos[this.state.startingIndex + 3]} height="25vh"/>
                         </div>
-                        <div className="col-6" style={background5}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex + 4].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
+                        <div className="col-6">
+                            <DiscoverPanel video={this.state.videos[this.state.startingIndex + 4]} height="25vh"/>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12" style={background6}>
-                            <text className="image-text">{this.state.videos[this.state.startingIndex + 5].original_title}</text>
-                            <div className="discover-buttons">
-                                {heartButton}
-                                {playButton}
-                            </div>
+                        <div className="col-12">
+                            <DiscoverPanel video={this.state.videos[this.state.startingIndex + 5]} height="50vh"/>
                         </div>
                     </div>
                 </div>
