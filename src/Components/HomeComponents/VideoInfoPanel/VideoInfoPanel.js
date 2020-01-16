@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 import './VideoInfoPanel.css';
 import ReactTooltip from 'react-tooltip'
 import posed from 'react-pose';
+import {CastList} from "../CastList/CastList";
 
 export class VideoInfoPanel extends React.Component {
     constructor(props) {
@@ -66,6 +67,8 @@ export class VideoInfoPanel extends React.Component {
             metaCriticValue = this.props.selectedVideo.extraData.Ratings[2].Value;
         }
 
+        console.log(this.props.selectedVideo);
+
         let imdbRating = <img data-tip={imdbRatingValue} className="imdbLink" src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png" alt="IMDB"/>;
         let rottenTomatosRating = <img data-tip={rottenTomatosRatingValue} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Rotten_Tomatoes.svg/1009px-Rotten_Tomatoes.svg.png" alt="Rotten Tomatoes"/>;
         let metaCritic = <img data-tip={metaCriticValue} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/1024px-Metacritic.svg.png" alt="Mega Critic"/>;
@@ -75,7 +78,7 @@ export class VideoInfoPanel extends React.Component {
             hidden: { opacity: 0 }
         });
 
-        return (
+        return (<div>
             <div style={divStyle}>
                 <div className="row">
                     <div className="col-6 container">
@@ -101,6 +104,10 @@ export class VideoInfoPanel extends React.Component {
                     </div>
                 </div>
 
+            </div>
+                <div className="row">
+                    <CastList movieId={this.props.selectedVideo.id}/>
+                </div>
             </div>
         )
         /*<Box className="poster" pose={this.state.isVisible ? 'visible' : 'hidden'} background={this.props.selectedVideo.Poster}/>*/

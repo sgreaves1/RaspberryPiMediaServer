@@ -229,4 +229,17 @@ async function getBackdropsAndImages(videos) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo};
+async function getCastForMovie(id) {
+    try {
+        let options = {
+            uri: `${url}/movie/${id}/credits?api_key=${movieDBKey}`,
+            json: true
+        };
+        return request(options);
+    } catch (error) {
+        console.log(`Error finding credits, The Movie DB`);
+        console.log(error);
+    }
+}
+
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getCastForMovie};

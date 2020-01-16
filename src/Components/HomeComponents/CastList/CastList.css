@@ -1,0 +1,13 @@
+.cast-box {
+    float:left;
+    margin: 5px;
+    height: 20vh;
+}
+
+.cast-poster {
+    height: 100%
+}
+
+.cast-poster:hover {
+    opacity: 0.2;
+}

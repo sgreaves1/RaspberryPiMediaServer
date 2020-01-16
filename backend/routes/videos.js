@@ -4,6 +4,7 @@ const HttpStatus = require('literal-http-status');
 const fs = require('fs');
 //const pathToFilms = '../../../../media/pi/OS/Films';
 const pathToFilms = 'Videos';
+const {getCastForMovie} = require ('../Helpers/movieApis');
 
 
 async function getFilmsList() {
@@ -19,6 +20,10 @@ async function getFilmsList() {
 
 router.get('/new/', async function (req, res) {
     res.status(HttpStatus['OK']).json(req.app.get('videos'));
+});
+
+router.get('/new/cast/:id', async function (req, res) {
+   res.status(HttpStatus['OK']).json(await getCastForMovie(req.params.id));
 });
 
 router.get('/discover', async function (req, res) {
