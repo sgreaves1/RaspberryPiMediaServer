@@ -41,14 +41,27 @@ export class VideoInfoPanel extends React.Component {
         let backdropNumber = Math.round(Math.random() *  number);
 
         if (this.props.selectedVideo.images) {
-            divStyle = {
-                marginTop: '20px',
-                backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.images.backdrops[backdropNumber].file_path})`,
-                backgroundSize: '110vh',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right',
-                height: '70vh',
-            };
+            if (this.props.selectedVideo.images.backdrops.length > 0) {
+                divStyle = {
+                    marginTop: '20px',
+                    backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.images.backdrops[backdropNumber].file_path})`,
+                    backgroundSize: '110vh',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right',
+                    height: '70vh',
+                };
+            }
+            else
+            {
+                divStyle = {
+                    marginTop: '20px',
+                    //backgroundImage: `linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2)),url(https://image.tmdb.org/t/p/original/${this.props.selectedVideo.images.backdrops[backdropNumber].file_path})`,
+                    backgroundSize: '110vh',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right',
+                    height: '70vh',
+                };
+            }
         }
 
         let imdbRatingValue = 'None';
