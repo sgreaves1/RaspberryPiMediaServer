@@ -5,7 +5,7 @@ function processCommandLineArgs() {
         videoFolder = process.argv[2];
     }
     else {
-        videoFolder = '../../../../media/pi/OS/Films';
+        videoFolder = '../../../../media/pi/OS1/Films';
     }
 }
 
