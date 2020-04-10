@@ -32,6 +32,7 @@ router.get('/discover', async function (req, res) {
 
 router.get('/:film', async function (req, res) {
 
+    let pathToFilms = getVideosFolder();
     const filmFile = pathToFilms + "/" + req.params.film;
     console.log(req.params.film);
 
