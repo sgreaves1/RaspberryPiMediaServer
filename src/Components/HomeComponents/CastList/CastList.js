@@ -25,8 +25,8 @@ export class CastList extends React.Component {
             .then(json => this.getCastInfo(json));
     }
 
-    onMouseClick = (event, video) => {
-        // this.props.showSelectedVideo(video);
+    onMouseClick = (event, actor) => {
+        this.props.showSelectedActor(actor);
     };
 
     async getCastInfo(cast) {

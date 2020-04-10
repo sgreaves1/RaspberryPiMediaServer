@@ -1,12 +1,12 @@
 const fs = require('fs');
-//const pathToFilms = '../../../../media/pi/OS/Films';
-const pathToFilms = 'Videos';
 const lineReader = require('line-reader');
 const path = require("path");
+const {getVideosFolder} = require('./commandLineArgs');
 
 async function getVideoFiles() {
     let films = [];
 
+    let pathToFilms = getVideosFolder();
     fs.readdirSync(pathToFilms).forEach(file =>  {
             films.push(file.split(`.`)[0]);
         }

@@ -242,4 +242,30 @@ async function getCastForMovie(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getCastForMovie};
+async function getActor(id) {
+    try {
+        let options = {
+            uri: `${url}/person/${id}?api_key=${movieDBKey}&language=en-US`,
+            json: true
+        };
+        return request(options);
+    } catch (error) {
+        console.log(`Error finding actor, The Movie DB`);
+        console.log(error);
+    }
+}
+
+async function getActorsFilmList(id) {
+    try {
+        let options = {
+            uri: `${url}/person/${id}/movie_credits?api_key=${movieDBKey}&language=en-US`,
+            json: true
+        };
+        return request(options);
+    } catch (error) {
+        console.log(`Error finding actor, The Movie DB`);
+        console.log(error);
+    }
+}
+
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getCastForMovie, getActor, getActorsFilmList};

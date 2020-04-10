@@ -10,9 +10,15 @@ export class VideoInfoPanel extends React.Component {
         super(props);
 
         this.state = {isVisible: true}
+
+        this.showSelectedActor = this.showSelectedActor.bind(this);
     }
 
     componentDidMount() {
+    }
+
+    showSelectedActor(actor) {
+        this.props.showSelectedActor(actor);
     }
 
     render() {
@@ -119,7 +125,7 @@ export class VideoInfoPanel extends React.Component {
 
             </div>
                 <div className="row">
-                    <CastList movieId={this.props.selectedVideo.id}/>
+                    <CastList movieId={this.props.selectedVideo.id} showSelectedActor={this.showSelectedActor}/>
                 </div>
             </div>
         )

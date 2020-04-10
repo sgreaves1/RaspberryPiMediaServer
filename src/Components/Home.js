@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Discover} from "./HomeComponents/DiscoverPage/Discover";
 import {ListOfVideos} from "./HomeComponents/ListOfVideos/ListOfVideos";
 import {VideoInfoPanel} from "./HomeComponents/VideoInfoPanel/VideoInfoPanel";
+import {ActorInfoPanel} from "./HomeComponents/ActorInfoPanel/ActorInfoPanel";
 import {SeriesEpisodeInfoPanel} from "./HomeComponents/SeriesEpisodeInfoPanel/SeriesEpisodeInfoPanel";
 import {MenuBar} from "./HomeComponents/MenuBar/MenuBar";
 const movieHelper = require ('../Helpers/movieApis');
@@ -13,6 +14,7 @@ export class Home extends Component {
         super();
 
         this.showSelectedVideo = this.showSelectedVideo.bind(this);
+        this.showSelectedActor = this.showSelectedActor.bind(this);
         this.hideSelectedVideo = this.hideSelectedVideo.bind(this);
 
         this.state = {
@@ -44,6 +46,9 @@ export class Home extends Component {
                 youtubeKey: null,
                 Type: null,
             },
+            selectedActor: {
+                name: null
+            },
             selectionType: movieHelper.SelectionType.all,
             genres: [],
             years: []
@@ -57,6 +62,11 @@ export class Home extends Component {
     showSelectedVideo(video) {
         this.setState({selectedVideo: video});
         this.props.updateVideoToPlay(video);
+    }
+
+    showSelectedActor(actor) {
+        this.setState({selectedActor: actor});
+        this.hideSelectedVideo();
     }
 
     hideSelectedVideo() {
@@ -231,6 +241,7 @@ export class Home extends Component {
     render() {
 
         let videoInfo;
+        let actorInfo;
         let seriesSelection;
         let videosList;
         let seriesList;
@@ -266,7 +277,7 @@ export class Home extends Component {
         if (this.state.selectedVideo.title) {
             videoInfo = <div className="row">
                 <div className="col">
-                    <VideoInfoPanel selectedVideo={this.state.selectedVideo} hideSelectedVideo={this.hideSelectedVideo}/>
+                    <VideoInfoPanel selectedVideo={this.state.selectedVideo} hideSelectedVideo={this.hideSelectedVideo} showSelectedActor={this.showSelectedActor}/>
                 </div>
             </div>;
 
@@ -281,10 +292,22 @@ export class Home extends Component {
             </div>
         }
 
+        if (this.state.selectedActor.name) {
+            actorInfo = <div className="row">
+                <div className="col">
+                    <ActorInfoPanel selectedActor={this.state.selectedActor} hideSelectedActor={this.hideSelectedActor}/>
+                </div>
+            </div>;
+
+            videosList = null;
+            seriesList = null;
+        }
+
         return (
             <div className="App">
                 <MenuBar ChangeSelectionType={this.changeSelection} filterVideos={this.filterVideos} genres={this.state.genres} years={this.state.years}/>
                 {videoInfo}
+                {actorInfo}
                 {seriesSelection}
                 {videosList}
                 {seriesList}

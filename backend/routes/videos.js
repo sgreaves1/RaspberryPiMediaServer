@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
-//const pathToFilms = '../../../../media/pi/OS/Films';
-const pathToFilms = 'Videos';
-const {getCastForMovie} = require ('../Helpers/movieApis');
+const {getVideosFolder} = require('../Helpers/commandLineArgs');
+const {getCastForMovie, getActor, getActorsFilmList} = require ('../Helpers/movieApis');
 
 
 async function getFilmsList() {
     let films = [];
 
+    let pathToFilms = getVideosFolder();
     fs.readdirSync(pathToFilms).forEach(file =>  {
                 films.push(file);
             }
@@ -68,6 +68,10 @@ router.get('/', async function (req, res) {
     res.status(HttpStatus['OK']).json(await getFilmsList());
 });
 
-
+router.get('/actor/:id', async function (req, res) {
+    let actor = await getActor(req.params.id);
+    let actorsFilms = await getActorsFilmList(req.params.id);
+    res.status(HttpStatus['OK']).json({actorDetails: actor, FilmsList: actorsFilms});
+});
 
 module.exports = router;

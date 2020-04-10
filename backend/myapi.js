@@ -5,6 +5,9 @@ let schedule = require('node-schedule');
 const {getVideoFiles, getRequestedVideos} = require ('./Helpers/fileReader');
 const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo} = require ('./Helpers/movieApis');
 const {MongoClient} = require('mongodb');
+const {processCommandLineArgs} = require('./Helpers/commandLineArgs');
+
+processCommandLineArgs();
 
 let app = express();
 let videos = [];
