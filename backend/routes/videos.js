@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
-const {getVideosFolder} = require('../Helpers/commandLineArgs');
+const {getVideosFolder, getPublicIp} = require('../Helpers/commandLineArgs');
 const {getCastForMovie, getActor, getActorsFilmList} = require ('../Helpers/movieApis');
 
 
@@ -28,6 +28,10 @@ router.get('/new/cast/:id', async function (req, res) {
 
 router.get('/discover', async function (req, res) {
     res.status(HttpStatus['OK']).json(req.app.get('popularityList'));
+});
+
+router.get('/ip', async  function (req, res) {
+    res.status(HttpStatus['OK']).json({ip: await getPublicIp()});
 });
 
 router.get('/:film', async function (req, res) {

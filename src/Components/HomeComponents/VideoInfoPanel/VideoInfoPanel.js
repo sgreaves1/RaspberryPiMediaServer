@@ -15,6 +15,7 @@ export class VideoInfoPanel extends React.Component {
     }
 
     componentDidMount() {
+
     }
 
     showSelectedActor(actor) {
@@ -85,8 +86,6 @@ export class VideoInfoPanel extends React.Component {
         if (this.props.selectedVideo.extraData.Ratings[2]) {
             metaCriticValue = this.props.selectedVideo.extraData.Ratings[2].Value;
         }
-
-        console.log(this.props.selectedVideo);
 
         let imdbRating = <img data-tip={imdbRatingValue} className="imdbLink" src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png" alt="IMDB"/>;
         let rottenTomatosRating = <img data-tip={rottenTomatosRatingValue} className="imdbLink" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Rotten_Tomatoes.svg/1009px-Rotten_Tomatoes.svg.png" alt="Rotten Tomatoes"/>;

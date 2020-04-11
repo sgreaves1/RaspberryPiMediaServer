@@ -2,7 +2,7 @@
   "name": "RaspberryPiMediaServer",
   "version": "1.0.0",
   "proxy": "http://localhost:3020",
-  "description": "",
+  "description": "React frontend with node js backend used to host movies on my local network",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,7 @@
     "frontend": "react-scripts start",
     "start": "npm run backend && npm run frontend"
   },
-  "author": "",
+  "author": "Sam Greaves",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.3.1",
@@ -25,6 +25,7 @@
     "network": "^0.4.1",
     "node-fetch": "^2.6.0",
     "node-schedule": "^1.3.2",
+    "public-ip": "^4.0.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-bootstrap-carousel": "^3.4.1",
