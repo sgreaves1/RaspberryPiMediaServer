@@ -46,5 +46,12 @@ export async function discoverPopular() {
         return movies;
 }
 
+export async function getVideoIp() {
+    let ip = await fetch('videos/ip/')
+        .then(res => res.json());
+
+    return ip;
+}
+
 
 

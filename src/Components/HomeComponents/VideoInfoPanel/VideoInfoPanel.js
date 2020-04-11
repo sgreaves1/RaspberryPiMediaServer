@@ -4,6 +4,8 @@ import './VideoInfoPanel.css';
 import ReactTooltip from 'react-tooltip'
 import posed from 'react-pose';
 import {CastList} from "../CastList/CastList";
+const movieHelper = require ('../../../Helpers/movieApis');
+
 
 export class VideoInfoPanel extends React.Component {
     constructor(props) {
@@ -14,8 +16,11 @@ export class VideoInfoPanel extends React.Component {
         this.showSelectedActor = this.showSelectedActor.bind(this);
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        let ip = await movieHelper.getVideoIp();
+        this.setState({ip: ip.ip});
+        console.log(this.state.ip);
+        console.log(this.state.ip);
     }
 
     showSelectedActor(actor) {
@@ -26,7 +31,7 @@ export class VideoInfoPanel extends React.Component {
 
         // let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
 
-        let videoUrl = 'http://192.168.1.18:3020/videos/' + this.props.selectedVideo.imdb_id + ".mp4";
+        let videoUrl = 'http://' + this.state.ip +':3020/videos/' + this.props.selectedVideo.imdb_id + ".mp4";
 
         let video;
 
