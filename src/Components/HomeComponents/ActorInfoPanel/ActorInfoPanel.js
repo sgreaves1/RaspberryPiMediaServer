@@ -1,7 +1,5 @@
 import React from "react";
 import './ActorInfoPanel.css';
-import { Graph } from "react-d3-graph";
-import {forEach} from "react-bootstrap/utils/ElementChildren";
 
 export class ActorInfoPanel extends React.Component {
     constructor(props) {

@@ -4,14 +4,15 @@ import './VideoInfoPanel.css';
 import ReactTooltip from 'react-tooltip'
 import posed from 'react-pose';
 import {CastList} from "../CastList/CastList";
+import ReactPlayer from 'react-player';
+
 const movieHelper = require ('../../../Helpers/movieApis');
-
-
+let trailerUrl = "";
 export class VideoInfoPanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {isVisible: true}
+        this.state = {isVisible: true};
 
         this.showSelectedActor = this.showSelectedActor.bind(this);
     }
@@ -19,8 +20,6 @@ export class VideoInfoPanel extends React.Component {
     async componentDidMount() {
         let ip = await movieHelper.getVideoIp();
         this.setState({ip: ip.ip});
-        console.log(this.state.ip);
-        console.log(this.state.ip);
     }
 
     showSelectedActor(actor) {
@@ -29,7 +28,8 @@ export class VideoInfoPanel extends React.Component {
 
     render() {
 
-        // let trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
+        // trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
+        trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.trailerKeys.results[0].key + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
 
         let videoUrl = 'http://' + this.state.ip +':3020/videos/' + this.props.selectedVideo.imdb_id + ".mp4";
 
@@ -115,15 +115,16 @@ export class VideoInfoPanel extends React.Component {
                         </div>
                         <div className="plot">{this.props.selectedVideo.overview}</div>
                         <div>
-                            <Route render = {({ history }) => (
-                                <a href={videoUrl}> <button className="play-button">Play</button> </a>
-                            )}/>
-                            <button>Trailer</button>
+
+                                <ReactPlayer url={trailerUrl} playing/>
+
                         </div>
                     </div>
 
                     <div className="col-6">
-
+                        <Route render = {({ history }) => (
+                            <a href={videoUrl}> <button className="play-button">Play</button> </a>
+                        )}/>
                     </div>
                 </div>
 

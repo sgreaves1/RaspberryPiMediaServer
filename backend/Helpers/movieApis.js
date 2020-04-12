@@ -90,6 +90,26 @@ async function enrichVideoInfo(videos) {
     }
 }
 
+async function getVideoTrailerKeys(videos) {
+    try {
+        videos = videos.map(async function(video) {
+            if (video) {
+                if (video.id && video.type == "movie")
+                    video.trailerKeys = await videoTrailersInfo(video.imdb_id);
+                else
+                    video.trailerKeys = null;
+            }
+            return video;
+        });
+
+        return Promise.all(videos);
+
+    } catch (error) {
+        console.log(`Error getting trailers, Open Movie Database`);
+        console.log(error);
+    }
+}
+
 async function videoInfoByImdbIdRequest(video) {
     try {
         let options = {
@@ -128,6 +148,20 @@ async function videoFromOmdb(id) {
         return request(options);
     } catch (error) {
         console.log(`Error finding ${id}, Open Movie Database`);
+        console.log(error);
+    }
+}
+
+async function videoTrailersInfo(imdb_id) {
+    try {
+        let options = {
+            uri: `${url}/movie/${imdb_id}/videos?api_key=${movieDBKey}`,
+            json: true
+        };
+        return request(options);
+
+    } catch (error) {
+        console.log(`Error finding trailers for ${id}, Open Movie Database`);
         console.log(error);
     }
 }
@@ -268,4 +302,4 @@ async function getActorsFilmList(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getCastForMovie, getActor, getActorsFilmList};
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
