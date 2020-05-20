@@ -1,5 +1,6 @@
 import React from "react";
 import './TestLayoutPanel.css';
+import ReactTooltip from "react-tooltip";
 
 
 export class TestLayoutPanel extends React.Component {
@@ -16,8 +17,9 @@ export class TestLayoutPanel extends React.Component {
                         break;
                     }
                     items.push(<div key={index} className="film-backdrop-box">
-                        <img className="film-backdrop" alt={`${value.title} poster`}
+                        <img data-tip={`<center>${value.title}</center>`} className="film-backdrop" alt={`${value.title} poster`}
                              src={`https://image.tmdb.org/t/p/original/${value.backdrop_path}`}/>
+                        <ReactTooltip html={true}/>
                     </div>)
                 }
             }
