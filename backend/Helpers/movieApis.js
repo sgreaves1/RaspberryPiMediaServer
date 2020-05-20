@@ -197,6 +197,21 @@ async function popularVideoRequest(pageNumber) {
     }
 }
 
+async function getTrendingVideos() {
+    try {
+        let options = {
+            uri: `${url}/trending/movie/day?api_key=${movieDBKey}`,
+            json: true
+        };
+
+        return request(options);
+    }
+    catch (error) {
+        console.log(`Error finding popular videos page ${pageNumber}, The Movie DB`);
+        console.log(error);
+    }
+}
+
 async function matchOwnedAndRequested(filmsList, ownedVideos, requestedVideos) {
 
     filmsList = filmsList.map(async function(page) {
@@ -302,4 +317,4 @@ async function getActorsFilmList(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};

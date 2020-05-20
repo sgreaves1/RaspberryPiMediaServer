@@ -5,6 +5,7 @@ export const SelectionType = {
     all: 'all',
     movies: 'movies',
     series: 'series',
+    test: 'test',
     discover: 'discover',
     requested: 'requested',
     suggest: 'suggest'

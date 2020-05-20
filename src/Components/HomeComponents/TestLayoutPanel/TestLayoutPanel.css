@@ -1,0 +1,13 @@
+.film-backdrop-box {
+    float:left;
+    margin: 5px;
+    height: 20vh;
+}
+
+.film-backdrop {
+    height: 100%
+}
+
+.film-backdrop:hover {
+    opacity: 0.2;
+}

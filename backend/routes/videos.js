@@ -3,7 +3,7 @@ const router = express.Router();
 const HttpStatus = require('literal-http-status');
 const fs = require('fs');
 const {getVideosFolder, getPublicIp} = require('../Helpers/commandLineArgs');
-const {getCastForMovie, getActor, getActorsFilmList} = require ('../Helpers/movieApis');
+const {getCastForMovie, getActor, getActorsFilmList, getTrendingVideos} = require ('../Helpers/movieApis');
 
 
 async function getFilmsList() {
@@ -28,6 +28,10 @@ router.get('/new/cast/:id', async function (req, res) {
 
 router.get('/discover', async function (req, res) {
     res.status(HttpStatus['OK']).json(req.app.get('popularityList'));
+});
+
+router.get('/trending', async function (req, res) {
+    res.status(HttpStatus['OK']).json(await getTrendingVideos());
 });
 
 router.get('/ip', async  function (req, res) {

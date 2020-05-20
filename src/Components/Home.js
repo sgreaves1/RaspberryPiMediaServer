@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {TestLayout} from "./HomeComponents/TestLayout/TestLayout"
 import {Discover} from "./HomeComponents/DiscoverPage/Discover";
 import {ListOfVideos} from "./HomeComponents/ListOfVideos/ListOfVideos";
 import {VideoInfoPanel} from "./HomeComponents/VideoInfoPanel/VideoInfoPanel";
@@ -149,6 +150,14 @@ export class Home extends Component {
         </div>;
     }
 
+    testLayout() {
+        return <div className="row videoRow">
+            <div className="col">
+                <TestLayout videos={this.state.films}/>
+            </div>
+        </div>
+    }
+
     discoverList() {
         return <div className="row videoRow">
             <div className="col">
@@ -246,6 +255,7 @@ export class Home extends Component {
         let videosList;
         let seriesList;
         let discoveriesList;
+        let testLayout;
 
         switch (this.state.selectionType) {
             case movieHelper.SelectionType.all:
@@ -257,6 +267,10 @@ export class Home extends Component {
                 break;
             case movieHelper.SelectionType.series:
                 seriesList = this.seriesList();
+                break;
+            case movieHelper.SelectionType.test:
+                this.state.selectedVideo.title = null;
+                testLayout = this.testLayout();
                 break;
             case movieHelper.SelectionType.discover:
                 this.state.selectedVideo.title = null;
@@ -312,6 +326,7 @@ export class Home extends Component {
                 {videosList}
                 {seriesList}
                 {discoveriesList}
+                {testLayout}
             </div>
         );
     }
