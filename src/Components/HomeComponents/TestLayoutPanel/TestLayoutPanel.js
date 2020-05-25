@@ -1,7 +1,6 @@
 import React from "react";
 import './TestLayoutPanel.css';
 import ReactTooltip from "react-tooltip";
-import missingPoster from '../../../Images/image-missing.png';
 
 
 export class TestLayoutPanel extends React.Component {
