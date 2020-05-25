@@ -1,11 +1,16 @@
 .film-backdrop-box {
     float:left;
+    width: 300px;
     margin: 5px;
     height: 20vh;
+    justify-content: center;
 }
 
 .film-backdrop {
-    height: 100%
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .film-backdrop:hover {
