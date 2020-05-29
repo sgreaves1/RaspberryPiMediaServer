@@ -4,7 +4,6 @@ import ReactTooltip from "react-tooltip";
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import { green } from '@material-ui/core/colors';
 
-
 export class TestLayoutPanel extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +13,7 @@ export class TestLayoutPanel extends React.Component {
         };
     }
 
-    myfunction() {
+    nextVideos() {
         this.setState(prevState => {
             return {
                 starting: prevState.starting + 5
@@ -22,17 +21,29 @@ export class TestLayoutPanel extends React.Component {
         });
     };
 
+    getImage(video1) {
+        console.log(video1);
+        return `/images/${video1.id}.jpg`;
+    };
+
+    addDefaultSrc(imageSource, ev){
+        ev.target.src = `https://image.tmdb.org/t/p/original/${imageSource}`;
+    }
+
     render() {
         const items = [];
             if (this.props.videos) {
 
                 let video1 = this.props.videos[this.state.starting];
                 if (video1) {
-                    let imageSource = video1.backdrop_path ? video1.backdrop_path : video1.poster_path;
+                    let backupImageSource = video1.backdrop_path ? video1.backdrop_path : video1.poster_path;
+                    let test = "this.src='https://image.tmdb.org/t/p/original/" + backupImageSource +"'";
+                    let imageSource = this.getImage(video1);
                     items.push(<div key={video1.title} className="film-backdrop-box">
                         <img data-tip={`<center>${video1.title}</center>`} className="film-backdrop"
                              alt={`${video1.title} poster`}
-                             src={`https://image.tmdb.org/t/p/original/${imageSource}`}/>
+                             src={imageSource}
+                             onError={this.addDefaultSrc.bind(this, backupImageSource)}/>
                         <ReactTooltip html={true}/>
                     </div>);
                 }
@@ -73,6 +84,8 @@ export class TestLayoutPanel extends React.Component {
                 video1 = this.props.videos[this.state.starting + 4];
                 if (video1) {
                     let imageSource = video1.backdrop_path ? video1.backdrop_path : video1.poster_path;
+
+
                     items.push(<div key={video1.title} className="film-backdrop-box">
                         <img data-tip={`<center>${video1.title}</center>`} className="film-backdrop"
                              alt={`${video1.title} poster`}
@@ -86,7 +99,7 @@ export class TestLayoutPanel extends React.Component {
         return <div>
             {items}
             {/*<button><img src={NavigateNext} alt="my image" } /></button>*/}
-            <button onClick={this.myfunction.bind(this)}>
+            <button onClick={this.nextVideos.bind(this)}>
                 <NavigateNext style={{ color: green[500] }}/>
             </button>
         </div>
