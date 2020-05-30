@@ -29,7 +29,12 @@ export class VideoInfoPanel extends React.Component {
     render() {
 
         // trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.youtubeKey + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
-        trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.trailerKeys.results[0].key + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
+
+        if (this.props.selectedVideo)
+            if (this.props.selectedVideo.trailerKeys)
+                if (this.props.selectedVideo.trailerKeys.results.length > 0)
+                    if (this.props.selectedVideo.trailerKeys.results[0].key)
+                        trailerUrl = 'https://www.youtube.com/embed/' + this.props.selectedVideo.trailerKeys.results[0].key + '?controls=0&autoplay=1&modestbranding=0&showinfo=0';
 
         let videoUrl = 'http://' + this.state.ip +':3020/videos/' + this.props.selectedVideo.imdb_id + ".mp4";
 
