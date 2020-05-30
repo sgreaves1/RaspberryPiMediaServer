@@ -37,7 +37,7 @@ global.mongoClient = MongoClient.connect(`mongodb://localhost:27017/mediaserver`
 });
 
 GetVideoData();
-GetDiscoveryData();
+//GetDiscoveryData();
 
 // schedule.scheduleJob('10 * * * * *', GetVideoData);
 // schedule.scheduleJob('10 * * * * *', GetDiscoveryData);

@@ -1,10 +1,10 @@
 const request = require('request-promise');
 const https = require('https');
 var fs = require('fs');
+const {getKey} = require('../Helpers/commandLineArgs');
 
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const url = "https://api.themoviedb.org/3";
-const openMDBKey = "43e4a901";
 const omdbUrl = "http://omdbapi.com/";
 
 async function getImagesAndBackdrops(type, id) {
@@ -143,7 +143,7 @@ async function videoInfoByIdRequest(type, videoId) {
 async function videoFromOmdb(id) {
     try {
         let options = {
-            uri: `${omdbUrl}/?i=${id}&plot=full&apikey=${openMDBKey}`,
+            uri: `${omdbUrl}/?i=${id}&plot=full&apikey=${getKey()}`,
             json: true
         };
         return request(options);
