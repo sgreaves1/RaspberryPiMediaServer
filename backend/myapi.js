@@ -53,7 +53,7 @@ async function GetVideoData() {
         videos = await sortVideoTypes(videos);
         videos.shows = await getShows(videos);
         videos = await getBackdropsAndImages(videos);
-        downloadPosters(videos);
+        await downloadPosters(videos);
         app.set('videos', videos);
         console.log('Got video data!');
     } catch (error) {
