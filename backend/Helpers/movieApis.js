@@ -294,7 +294,7 @@ async function downloadPosters(videos) {
 
         for(let video of videos.movies) {
             if (!fs.existsSync(`public/images/posters/${video.id}.jpg`)) {
-                request(`https://image.tmdb.org/t/p/original/${video.poster_path}`)
+                await request(`https://image.tmdb.org/t/p/original/${video.poster_path}`)
                     .pipe(fs.createWriteStream(`public/images/posters/${video.id}.jpg`));
                 current ++;
             }
