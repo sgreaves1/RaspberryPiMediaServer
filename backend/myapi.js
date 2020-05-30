@@ -3,7 +3,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let schedule = require('node-schedule');
 const {getVideoFiles, getRequestedVideos} = require ('./Helpers/fileReader');
-const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getVideoTrailerKeys} = require ('./Helpers/movieApis');
+const {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys} = require ('./Helpers/movieApis');
 const {MongoClient} = require('mongodb');
 const {processCommandLineArgs} = require('./Helpers/commandLineArgs');
 
@@ -53,6 +53,7 @@ async function GetVideoData() {
         videos = await sortVideoTypes(videos);
         videos.shows = await getShows(videos);
         videos = await getBackdropsAndImages(videos);
+        downloadPosters(videos);
         app.set('videos', videos);
         console.log('Got video data!');
     } catch (error) {

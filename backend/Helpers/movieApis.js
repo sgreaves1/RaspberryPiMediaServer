@@ -1,5 +1,6 @@
 const request = require('request-promise');
 const https = require('https');
+var fs = require('fs');
 
 const movieDBKey = 'b02a817eb883ed35a6d2104bb1555775';
 const url = "https://api.themoviedb.org/3";
@@ -278,6 +279,35 @@ async function getBackdropsAndImages(videos) {
     }
 }
 
+var download = function(uri, filename, callback){
+    request.head(uri, function(err, res, body){
+        console.log('content-type:', res.headers['content-type']);
+        console.log('content-length:', res.headers['content-length']);
+
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+};
+
+async function downloadPosters(videos) {
+    try {
+
+        let total = videos.movies.length;
+        let current = 0;
+
+        for(let video of videos.movies) {
+                request(`https://image.tmdb.org/t/p/original/${video.poster_path}`)
+                    .pipe(fs.createWriteStream(`public/images/posters/${video.id}.jpg`));
+                current ++;
+
+                console.log(`${current}/${total}`);
+        }
+    }
+    catch (error) {
+        console.log(`Error finding images and backdrops, The Movie DB`);
+        console.log(error);
+    }
+}
+
 async function getCastForMovie(id) {
     try {
         let options = {
@@ -317,4 +347,4 @@ async function getActorsFilmList(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
+module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
