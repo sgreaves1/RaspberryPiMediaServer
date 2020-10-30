@@ -39,6 +39,14 @@ export class Home extends Component {
                 Poster: null,
                 imdbID: null,
             }],
+            channels: [{
+                Title: null,
+                Poster: null,
+            }],
+            filteredChannels: [{
+                Title: null,
+                Poster: null,
+            }],
             selectedVideo: {
                 title: null,
                 Poster: null,
@@ -88,6 +96,7 @@ export class Home extends Component {
             .then(json => {
                 this.getVideosInfo(json);
                 this.getSeriesInfo(json);
+                this.getChannelsInfo(json);
             });
     }
 
@@ -134,6 +143,10 @@ export class Home extends Component {
         this.setState({filteredSeries: videos.shows});
     }
 
+    async getChannelsInfo() {
+        //this.setState({filteredSeries: [{Title: "TLC", id: "TLC", poster_path: "TLC"}]});
+    }
+
     videoList() {
         return <div className="row videoRow">
             <div className="col">
@@ -148,6 +161,14 @@ export class Home extends Component {
                 <ListOfVideos videos={this.state.filteredSeries} showSelectedVideo={this.showSelectedVideo}/>
             </div>
         </div>;
+    }
+
+    channelsList() {
+        return <div className="row videoRow">
+            <div className="col">
+                <ListOfVideos videos={this.state.filteredChannels} showSelectedVideo={this.showSelectedVideo}/>
+            </div>
+        </div>
     }
 
     testLayout() {
@@ -254,6 +275,7 @@ export class Home extends Component {
         let seriesSelection;
         let videosList;
         let seriesList;
+        let channelsList;
         let discoveriesList;
         let testLayout;
 
@@ -267,6 +289,9 @@ export class Home extends Component {
                 break;
             case movieHelper.SelectionType.series:
                 seriesList = this.seriesList();
+                break;
+            case movieHelper.SelectionType.channels:
+                channelsList = this.channelsList();
                 break;
             case movieHelper.SelectionType.test:
                 this.state.selectedVideo.title = null;
@@ -297,13 +322,20 @@ export class Home extends Component {
 
             videosList = null;
             seriesList = null;
+            channelsList = null;
         }
-        if (this.state.selectedVideo.Type === "series") {
+
+        if (this.state.selectedVideo.type === "Scripted") {
             seriesSelection = <div className="row">
                 <div className="col">
-                    <SeriesEpisodeInfoPanel series={this.state.selectedVideo}/>
+                    <SeriesEpisodeInfoPanel series={this.state.selectedVideo} hideSelectedVideo={this.hideSelectedVideo}/>
                 </div>
             </div>
+
+            videosList = null;
+            seriesList = null;
+            channelsList = null;
+
         }
 
         if (this.state.selectedActor.name) {
@@ -315,6 +347,7 @@ export class Home extends Component {
 
             videosList = null;
             seriesList = null;
+            channelsList = null;
         }
 
         return (
@@ -325,6 +358,7 @@ export class Home extends Component {
                 {seriesSelection}
                 {videosList}
                 {seriesList}
+                {channelsList}
                 {discoveriesList}
                 {testLayout}
             </div>

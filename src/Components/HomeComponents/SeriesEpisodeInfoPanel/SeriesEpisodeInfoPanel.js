@@ -5,8 +5,8 @@ import {EpisodeList} from "./EpisodeList/EpisodeList";
 
 
 export class SeriesEpisodeInfoPanel extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {showEpisodes: true, showEpisodesButtonText: "Collapse"}
     }
 
@@ -34,7 +34,7 @@ export class SeriesEpisodeInfoPanel extends React.Component {
 
     render() {
         const tabs = [];
-        for (let i = 0; i < this.props.series.totalSeasons; i++) {
+        for (let i = 0; i < this.props.series.seasons; i++) {
             let title = "Season " + (i+1);
             tabs.push(<tab eventKey={i} title={title}>
                 <div>
@@ -60,6 +60,7 @@ export class SeriesEpisodeInfoPanel extends React.Component {
         return (
             <div className="row">
                 <div className="col">
+                    <button onClick={() => {this.props.hideSelectedVideo()}}>Back</button>
                     <Tabs onSelect={() => this.setState({showEpisodes: true, showEpisodesButtonText: "Collapse"})}>
                         {tabs}
                     </Tabs>
