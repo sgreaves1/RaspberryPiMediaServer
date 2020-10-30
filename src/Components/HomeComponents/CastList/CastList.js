@@ -38,10 +38,16 @@ export class CastList extends React.Component {
 
         const items = [];
         for (const [index, value] of this.state.Cast.cast.entries()) {
-            items.push(<div key={index} className="cast-box">
-                <img data-tip={`<center>${value.name}</center><center> as </center><center>${value.character}</center>`} className="cast-poster" alt={`${value.name}`} src={`https://image.tmdb.org/t/p/original/${value.profile_path}`} onClick={(e) => this.onMouseClick(e, value)}/>
-                <ReactTooltip html={true}/>
-            </div>)
+            if (index < 13) {
+                items.push(<div key={index} className="cast-box">
+                    <img
+                        data-tip={`<center>${value.name}</center><center> as </center><center>${value.character}</center>`}
+                        className="cast-poster" alt={`${value.name}`}
+                        src={`https://image.tmdb.org/t/p/original/${value.profile_path}`}
+                        onClick={(e) => this.onMouseClick(e, value)}/>
+                    <ReactTooltip html={true}/>
+                </div>)
+            }
         }
 
         return (
