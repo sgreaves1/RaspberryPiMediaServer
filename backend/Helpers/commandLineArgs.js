@@ -7,13 +7,14 @@ let key = "";
 async function processCommandLineArgs() {
     if (process.argv.length >= 3) {
         videoFolder = process.argv[2];
-        ip = "192.168.1.110";
+        ip = "192.168.0.20";
         //key = "43e4a901";
         key = "d665bc3c";
     }
     else {
         videoFolder = '../../../../media/pi/OS1/Films';
-        ip = await publicIp.v4();
+        //ip = await publicIp.v4();
+        ip = "192.168.0.20";
         key = "d665bc3c";
     }
 }
