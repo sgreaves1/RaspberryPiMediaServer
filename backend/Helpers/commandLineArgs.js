@@ -12,7 +12,7 @@ async function processCommandLineArgs() {
         key = "d665bc3c";
     }
     else {
-        videoFolder = '../../../../media/pi/OS/Films';
+        videoFolder = '../../../../media/pi/OS1/Films';
         ip = await publicIp.v4();
         key = "d665bc3c";
     }
