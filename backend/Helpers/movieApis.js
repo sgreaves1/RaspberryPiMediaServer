@@ -48,19 +48,27 @@ async function sortVideoTypes(videos) {
 async function getVideoInfoByImdbIds(imdbIds) {
     try {
         let moviePromises = imdbIds.map(async function(id) {
-           let results = await videoInfoByImdbIdRequest(id);
+            try {
+                let results = await videoInfoByImdbIdRequest(id);
 
-           if (results['movie_results'].length > 0) {
-               results['movie_results'][0].type='movie';
-               results['movie_results'][0].imdb_id=id;
-               return results['movie_results'][0];
-           }
+                if (results){
+                    if (results['movie_results'].length > 0) {
+                        results['movie_results'][0].type='movie';
+                        results['movie_results'][0].imdb_id=id;
+                        return results['movie_results'][0];
+                    }
 
-            if (results['tv_episode_results'].length > 0) {
-                results['tv_episode_results'][0].type='episode';
-                results['tv_episode_results'][0].imdb_id=id;
-                return results['tv_episode_results'][0];
+                    if (results['tv_episode_results'].length > 0) {
+                        results['tv_episode_results'][0].type='episode';
+                        results['tv_episode_results'][0].imdb_id=id;
+                        return results['tv_episode_results'][0];
+                    }
+                }
             }
+            catch (e) {
+                console.log(e);
+            }
+
         });
 
         return Promise.all(moviePromises);
@@ -69,6 +77,16 @@ async function getVideoInfoByImdbIds(imdbIds) {
         console.log(`Error finding videos, The Movie DB`);
         console.log(error);
     }
+}
+
+async function sortVideos(videos) {
+    let films = videos['movies'];
+
+    let result = films.sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
+
+    videos['movies'] = result;
+
+    return videos;
 }
 
 async function enrichVideoInfo(videos) {
@@ -113,12 +131,14 @@ async function getVideoTrailerKeys(videos) {
 
 async function videoInfoByImdbIdRequest(video) {
     try {
-        let options = {
-            uri: `${url}/find/${video}?api_key=${movieDBKey}&language=en-US&external_source=imdb_id`,
-            json: true
-        };
+        if (video !== "") {
+            let options = {
+                uri: `${url}/find/${video}?api_key=${movieDBKey}&language=en-US&external_source=imdb_id`,
+                json: true
+            };
 
-        return request(options);
+            return request(options);
+        }
     }
     catch (error) {
         console.log(`Error finding ${video}, The Movie DB`);
@@ -355,4 +375,4 @@ async function getActorsFilmList(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
+module.exports = {getVideoInfoByImdbIds, sortVideos, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
