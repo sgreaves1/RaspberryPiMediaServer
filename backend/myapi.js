@@ -6,14 +6,16 @@ const {getVideoFiles, getRequestedVideos} = require ('./Helpers/fileReader');
 const {getVideoInfoByImdbIds, sortVideos, sortVideoTypes, getVideosImdbIds, getPopularVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys} = require ('./Helpers/movieApis');
 const {MongoClient} = require('mongodb');
 const {processCommandLineArgs} = require('./Helpers/commandLineArgs');
+const fs = require('fs');
+
 
 processCommandLineArgs();
 
 let app = express();
-let videos = [];
 
 // Routes
 const videoRoute = require('./routes/videos');
+const channelsRoute = require('./routes/channels');
 
 app.use(express['static'](__dirname ));
 
@@ -21,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/videos', videoRoute);
+app.use('/channels', channelsRoute);
 
 app.listen(3020);
 
@@ -57,6 +60,7 @@ async function GetVideoData() {
         await downloadPosters(videos);
         app.set('videos', videos);
         console.log('Got video data!');
+        StartupChannels();
     } catch (error) {
         console.log("Error getting video data!");
         console.log(error);
@@ -75,6 +79,23 @@ async function GetDiscoveryData() {
         // save discover to db
     } catch (error) {
         console.log("Error getting discovery data!");
+        console.log(error);
+    }
+}
+
+async function StartupChannels () {
+    try {
+        let channels = JSON.parse(fs.readFileSync(__dirname + '/Data/channels.json', 'utf8'));
+
+        channels.channels.forEach(channel => {
+            let movies = app.settings['videos'].movies;
+            let random = Math.floor(Math.random() * movies.length);
+            channel.playing = movies[random];
+        });
+
+        app.set("channels", channels);
+    } catch (error) {
+        console.log("Error starting channels!");
         console.log(error);
     }
 }

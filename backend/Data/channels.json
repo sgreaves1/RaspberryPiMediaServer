@@ -1,0 +1,12 @@
+{
+  "channels" : [
+    {
+      "name": "Movies 1",
+      "image": "movies1.jpg"
+    },
+    {
+      "name": "Movies 2",
+      "image": "movies2.jpg"
+    }
+  ]
+}

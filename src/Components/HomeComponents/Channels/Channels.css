@@ -1,0 +1,18 @@
+.list-films-box {
+    color: white;
+    margin: 5px;
+}
+
+.film-box {
+    float:left;
+    margin: 5px;
+    height: 20vh;
+}
+
+.film-poster {
+    height: 100%
+}
+
+.film-poster:hover {
+    opacity: 0.2;
+}

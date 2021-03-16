@@ -6,6 +6,7 @@ import {VideoInfoPanel} from "./HomeComponents/VideoInfoPanel/VideoInfoPanel";
 import {ActorInfoPanel} from "./HomeComponents/ActorInfoPanel/ActorInfoPanel";
 import {SeriesEpisodeInfoPanel} from "./HomeComponents/SeriesEpisodeInfoPanel/SeriesEpisodeInfoPanel";
 import {MenuBar} from "./HomeComponents/MenuBar/MenuBar";
+import {Channels} from "./HomeComponents/Channels/Channels";
 const movieHelper = require ('../Helpers/movieApis');
 
 
@@ -40,8 +41,9 @@ export class Home extends Component {
                 imdbID: null,
             }],
             channels: [{
-                Title: null,
-                Poster: null,
+                name: null,
+                image: null,
+                playing: null,
             }],
             filteredChannels: [{
                 Title: null,
@@ -66,6 +68,7 @@ export class Home extends Component {
 
     componentDidMount() {
         this.getVideos();
+        this.getChannels();
     }
 
     showSelectedVideo(video) {
@@ -96,6 +99,14 @@ export class Home extends Component {
             .then(json => {
                 this.getVideosInfo(json);
                 this.getSeriesInfo(json);
+                this.getChannelsInfo(json);
+            });
+    }
+
+    async getChannels() {
+        fetch('channels/')
+            .then(res => res.json())
+            .then(json => {
                 this.getChannelsInfo(json);
             });
     }
@@ -143,8 +154,8 @@ export class Home extends Component {
         this.setState({filteredSeries: videos.shows});
     }
 
-    async getChannelsInfo() {
-        //this.setState({filteredSeries: [{Title: "TLC", id: "TLC", poster_path: "TLC"}]});
+    async getChannelsInfo(channels) {
+        this.setState({channels: channels.channels});
     }
 
     videoList() {
@@ -166,7 +177,7 @@ export class Home extends Component {
     channelsList() {
         return <div className="row videoRow">
             <div className="col">
-                <ListOfVideos videos={this.state.filteredChannels} showSelectedVideo={this.showSelectedVideo}/>
+                <Channels channels={this.state.channels} />
             </div>
         </div>
     }
