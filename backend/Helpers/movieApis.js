@@ -45,22 +45,24 @@ async function sortVideoTypes(videos) {
     return info;
 }
 
-async function getVideoInfoByImdbIds(imdbIds) {
+async function getVideoInfoByImdbIds(films) {
     try {
-        let moviePromises = imdbIds.map(async function(id) {
+        let moviePromises = films.map(async function(film) {
             try {
-                let results = await videoInfoByImdbIdRequest(id);
+                let results = await videoInfoByImdbIdRequest(film.id);
 
                 if (results){
                     if (results['movie_results'].length > 0) {
                         results['movie_results'][0].type='movie';
-                        results['movie_results'][0].imdb_id=id;
+                        results['movie_results'][0].imdb_id=film.id;
+                        results['movie_results'][0].location=film.hddName;
                         return results['movie_results'][0];
                     }
 
                     if (results['tv_episode_results'].length > 0) {
                         results['tv_episode_results'][0].type='episode';
-                        results['tv_episode_results'][0].imdb_id=id;
+                        results['tv_episode_results'][0].imdb_id=film.id;
+                        results['tv_episode_results'][0].location=film.hddName;
                         return results['tv_episode_results'][0];
                     }
                 }

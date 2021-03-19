@@ -2,11 +2,21 @@
   "channels" : [
     {
       "name": "Movies 1",
-      "image": "movies1.jpg"
+      "image": "movies1.jpg",
+      "random": true
     },
     {
       "name": "Movies 2",
-      "image": "movies2.jpg"
+      "image": "movies2.jpg",
+      "random": true
+    },
+    {
+      "name": "The Boys",
+      "image": "boys.jpg",
+      "random": false,
+      "keys": [
+        "76479"
+      ]
     }
   ]
 }

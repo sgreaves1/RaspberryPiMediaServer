@@ -7,8 +7,12 @@ async function getVideoFiles() {
     let films = [];
 
     let pathToFilms = getVideosFolder();
+    //let hddDetails = getHddDetails();
     fs.readdirSync(pathToFilms).forEach(file =>  {
-            films.push(file.split(`.`)[0]);
+            films.push({
+                "id" : file.split(`.`)[0],
+                "hddName" : "OS1"
+            });
         }
     );
 

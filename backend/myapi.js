@@ -88,9 +88,19 @@ async function StartupChannels () {
         let channels = JSON.parse(fs.readFileSync(__dirname + '/Data/channels.json', 'utf8'));
 
         channels.channels.forEach(channel => {
-            let movies = app.settings['videos'].movies;
-            let random = Math.floor(Math.random() * movies.length);
-            channel.playing = movies[random];
+            if (channel.keys) {
+                let shows = app.settings['videos'].shows.filter(show => channel.keys.includes(show.id.toString()));
+                let episodes = app.settings['videos'].episodes.filter(episode => channel.keys.includes(episode.show_id.toString()));
+
+                let random = Math.floor(Math.random() * episodes.length);
+
+                channel.playing = episodes[random];
+            }
+            else {
+                let movies = app.settings['videos'].movies;
+                let random = Math.floor(Math.random() * movies.length);
+                channel.playing = movies[random];
+            }
         });
 
         app.set("channels", channels);
