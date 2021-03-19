@@ -11,11 +11,19 @@
       "random": true
     },
     {
-      "name": "The Boys",
-      "image": "boys.jpg",
+      "name": "The Office",
+      "image": "theoffice.jpg",
       "random": false,
       "keys": [
-        "76479"
+        "tt0386676"
+      ]
+    },
+    {
+      "name": "Game of Thrones",
+      "image": "GOT.jpg",
+      "random": false,
+      "keys": [
+        "1399"
       ]
     }
   ]
