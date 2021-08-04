@@ -45,7 +45,7 @@
     "redux": "^4.0.5",
     "request": "latest",
     "request-ip": "^2.1.3",
-    "tar": "^4.4.8"
+    "tar": "^4.4.15"
   },
   "browserslist": [
     ">0.2%",
