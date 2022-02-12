@@ -1,0 +1,13 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+    container_name: movies-frontend
+    ports:
+      - 3000:3000
+    networks:
+      - movies
+networks:
+  movies:
+    driver: bridge
