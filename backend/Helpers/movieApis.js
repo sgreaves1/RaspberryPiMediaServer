@@ -313,9 +313,16 @@ async function videosToKodi(videos) {
             });
         }
         for(let video of videos.episodes) {
+
+            let thumb = ""
+            if (video.still_path  && video.still_path !== 'null')
+                thumb = 'http://image.tmdb.org/t/p/original' + video.still_path
+            else if (video.extraData.Poster && video.extraData.Poster !== 'null')
+                thumb = video.extraData.Poster
+
             forKodi.TvShows.push({
                 'name': video.season_number  + ':' + video.episode_number + ' ' + video.name,
-                'thumb': 'http://image.tmdb.org/t/p/original' + video.still_path,
+                'thumb': thumb,
                 'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
                 'genre': video.extraData.Genre
             });
