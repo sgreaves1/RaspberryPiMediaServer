@@ -303,11 +303,19 @@ async function getBackdropsAndImages(videos) {
 
 async function videosToKodi(videos) {
     try {
-        let forKodi = [];
+        let forKodi = { Movies: [], TvShows: []};
         for(let video of videos.movies) {
-            forKodi.push({
+            forKodi.Movies.push({
                 'name': video.title,
                 'thumb': 'http://image.tmdb.org/t/p/original' + video.poster_path,
+                'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
+                'genre': video.extraData.Genre
+            });
+        }
+        for(let video of videos.episodes) {
+            forKodi.TvShows.push({
+                'name': video.season_number  + ':' + video.episode_number + ' ' + video.name,
+                'thumb': 'http://image.tmdb.org/t/p/original/3ZerJvXQXcM3tygHRkPTDbbK0hw.jpg' + video.still_path,
                 'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
                 'genre': video.extraData.Genre
             });
