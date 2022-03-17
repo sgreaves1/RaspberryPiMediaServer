@@ -22,6 +22,10 @@ router.get('/new/', async function (req, res) {
     res.status(HttpStatus['OK']).json(req.app.get('videos'));
 });
 
+router.get('/kodi/', async function (req, res) {
+    res.status(HttpStatus['OK']).json(req.app.get('kodiVideos'));
+});
+
 router.get('/new/cast/:id', async function (req, res) {
    res.status(HttpStatus['OK']).json(await getCastForMovie(req.params.id));
 });

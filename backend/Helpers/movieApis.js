@@ -301,6 +301,25 @@ async function getBackdropsAndImages(videos) {
     }
 }
 
+async function videosToKodi(videos) {
+    try {
+        let forKodi = [];
+        for(let video of videos.movies) {
+            forKodi.push({
+                'name': video.title,
+                'thumb': 'http://image.tmdb.org/t/p/original' + video.poster_path,
+                'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
+                'genre': video.extraData.Genre
+            });
+        }
+        return forKodi;
+    }
+    catch (error) {
+        console.log(`Error converting movies for kodi`);
+        console.log(error);
+    }
+}
+
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         console.log('content-type:', res.headers['content-type']);
@@ -377,4 +396,4 @@ async function getActorsFilmList(id) {
     }
 }
 
-module.exports = {getVideoInfoByImdbIds, sortVideos, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList};
+module.exports = {getVideoInfoByImdbIds, sortVideos, sortVideoTypes, getVideosImdbIds, getPopularVideos, getTrendingVideos, matchOwnedAndRequested, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys, getCastForMovie, getActor, getActorsFilmList, videosToKodi};
