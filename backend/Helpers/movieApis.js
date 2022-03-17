@@ -312,21 +312,30 @@ async function videosToKodi(videos) {
                 'genre': video.extraData.Genre
             });
         }
-        for(let video of videos.episodes) {
-
-            let thumb = ""
-            if (video.still_path  && video.still_path !== 'null')
-                thumb = 'http://image.tmdb.org/t/p/original' + video.still_path
-            else if (video.extraData.Poster && video.extraData.Poster !== 'null')
-                thumb = video.extraData.Poster
+        for(let video of videos.shows) {
 
             forKodi.TvShows.push({
-                'name': video.season_number  + ':' + video.episode_number + ' ' + video.name,
-                'thumb': thumb,
-                'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
-                'genre': video.extraData.Genre
+                'name':  video.name,
+                'thumb': 'http://image.tmdb.org/t/p/original' + video.poster_path,
+                'video': '',
+                'genre': 'N/A'
             });
         }
+        // for(let video of videos.episodes) {
+        //
+        //     let thumb = ""
+        //     if (video.still_path  && video.still_path !== 'null')
+        //         thumb = 'http://image.tmdb.org/t/p/original' + video.still_path
+        //     else if (video.extraData.Poster && video.extraData.Poster !== 'null')
+        //         thumb = video.extraData.Poster
+        //
+        //     forKodi.TvShows.push({
+        //         'name': video.extraData.Season  + ':' + video.extraData.Episode + ' ' + video.name,
+        //         'thumb': thumb,
+        //         'video': 'http://samgreaves.com:3020/videos/'+ video.imdb_id +'.mp4',
+        //         'genre': video.extraData.Genre
+        //     });
+        // }
         return forKodi;
     }
     catch (error) {
