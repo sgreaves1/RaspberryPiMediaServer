@@ -27,8 +27,14 @@ router.get('/kodi/', async function (req, res) {
 });
 
 router.get('/kodi/:category', async function (req, res) {
-    let category = req.app.get('kodiVideos');
-    res.status(HttpStatus['OK']).json(category[req.params.category]);
+    let categories = req.app.get('kodiVideos');
+    let category = {};
+    categories.forEach(cat => {
+        if (cat.name === req.params.category)
+            category = cat;
+    });
+
+    res.status(HttpStatus['OK']).json(category);
 });
 
 router.get('/new/cast/:id', async function (req, res) {
