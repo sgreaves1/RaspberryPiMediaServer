@@ -28,13 +28,16 @@ router.get('/kodi/', async function (req, res) {
 
 router.get('/kodi/:category', async function (req, res) {
     let categories = req.app.get('kodiVideos');
-    let category = {};
+    let videos = [];
     categories.forEach(cat => {
         if (cat.name === req.params.category)
-            category = cat;
+            if (cat.name === "Movies")
+                videos = cat.videos;
+            else if (cat.name === "TV Shows")
+                videos = cat.shows
     });
 
-    res.status(HttpStatus['OK']).json(category);
+    res.status(HttpStatus['OK']).json(videos);
 });
 
 router.get('/new/cast/:id', async function (req, res) {
