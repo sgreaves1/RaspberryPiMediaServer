@@ -53,20 +53,54 @@ router.get('/trending', async function (req, res) {
 });
 
 router.get('/update', async function (req, res) {
-
     let listOfFiles = await getFilmsList();
     let notLoaded = 0;
+    let videosToAdd = [];
+    let names = [];
     let videos = req.app.get('videos')
 
     listOfFiles.forEach(file => {
         let imdbId = file.split('.')[0];
 
-        if (videos.movies.filter(movie => movie.imdb_id == imdbId) === undefined)
-            if (videos.episodes.filter(episode => episode.imdb_id == imdbId) === undefined)
+        if (videos.movies.filter(movie => movie.imdb_id === imdbId) === undefined)
+            if (videos.episodes.filter(episode => episode.imdb_id === imdbId) === undefined) {
                 notLoaded++;
+                videosToAdd.push(imdbId)
+            }
+
     });
 
-    res.status(HttpStatus['OK']).send(notLoaded);
+    if (notLoaded > 0) {
+        console.log("updating video collection")
+        let videosToAdd = await getVideoInfoByImdbIds(films);
+        videosToAdd = await enrichVideoInfo(videosToAdd);
+        videosToAdd = await getVideoTrailerKeys(videosToAdd);
+        videosToAdd = await sortVideoTypes(videosToAdd);
+        videosToAdd = await sortVideos(videosToAdd);
+        videosToAdd.shows = await getShows(videosToAdd);
+        videosToAdd = await getBackdropsAndImages(videosToAdd);
+        await downloadPosters(videosToAdd);
+
+        // add videos to main videos list
+        videosToAdd.movies.forEach(movie => {
+            names.push(movie.original_title);
+            videos.movies.push(movie);
+        });
+        videosToAdd.shows.forEach(show => {
+            if (videos.shows.filter(s => s.id === show.id) === undefined)
+                videos.shows.push(show)
+        });
+        videosToAdd.episodes.forEach(episode => {
+            names.push(episode.season_number + "-"  + episode.episode_number + " " + episode.name);
+            videos.episodes.push(episode)
+        });
+
+        app.set('videos', videos);
+        let forKodi = await videosToKodi(videos);
+        app.set('kodiVideos', forKodi)
+    }
+
+    res.status(HttpStatus['OK']).send({"New Files added": notLoaded, "Added": names });
 });
 
 router.get('/ip', async  function (req, res) {
