@@ -52,6 +52,23 @@ router.get('/trending', async function (req, res) {
     res.status(HttpStatus['OK']).json(await getTrendingVideos());
 });
 
+router.get('/update', async function (req, res) {
+
+    let listOfFiles = await getFilmsList();
+    let notLoaded = 0;
+    let videos = req.app.get('videos')
+
+    listOfFiles.forEach(file => {
+        let imdbId = file.split('.')[0];
+
+        if (videos.movies.filter(movie => movie.imdb_id == imdbId) === undefined)
+            if (videos.episodes.filter(episode => episode.imdb_id == imdbId) === undefined)
+                notLoaded++;
+    });
+
+    res.status(HttpStatus['OK']).send(notLoaded);
+});
+
 router.get('/ip', async  function (req, res) {
     res.status(HttpStatus['OK']).json({ip: await getPublicIp()});
 });
