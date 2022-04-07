@@ -4,7 +4,7 @@ const HttpStatus = require('literal-http-status');
 const fs = require('fs');
 const {getVideosFolder, getPublicIp} = require('../Helpers/commandLineArgs');
 const {getCastForMovie, getActor, getActorsFilmList, getTrendingVideos} = require ('../Helpers/movieApis');
-
+const {getVideoInfoByImdbIds, videosToKodi, sortVideos, sortVideoTypes, getShows, getBackdropsAndImages, downloadPosters, enrichVideoInfo, getVideoTrailerKeys} = require ('../Helpers/movieApis');
 
 async function getFilmsList() {
     let films = [];
@@ -55,7 +55,7 @@ router.get('/trending', async function (req, res) {
 router.get('/update', async function (req, res) {
     let listOfFiles = await getFilmsList();
     let notLoaded = 0;
-    let videosToAdd = [];
+    let newIMDBIDsToAdd = [];
     let names = [];
     let videos = req.app.get('videos')
 
@@ -65,14 +65,14 @@ router.get('/update', async function (req, res) {
         if (videos.movies.filter(movie => movie.imdb_id === imdbId) === undefined)
             if (videos.episodes.filter(episode => episode.imdb_id === imdbId) === undefined) {
                 notLoaded++;
-                videosToAdd.push(imdbId)
+                newIMDBIDsToAdd.push(imdbId)
             }
 
     });
 
     if (notLoaded > 0) {
         console.log("updating video collection")
-        let videosToAdd = await getVideoInfoByImdbIds(films);
+        let videosToAdd = await getVideoInfoByImdbIds(newIMDBIDsToAdd);
         videosToAdd = await enrichVideoInfo(videosToAdd);
         videosToAdd = await getVideoTrailerKeys(videosToAdd);
         videosToAdd = await sortVideoTypes(videosToAdd);
