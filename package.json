@@ -5,7 +5,7 @@
   "description": "React frontend with node js backend used to host movies on my local network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified yet\"",
     "backend": "node backend/myapi.js",
     "backend-local": "node backend/myapi.js Videos",
     "frontend": "react-scripts start",
