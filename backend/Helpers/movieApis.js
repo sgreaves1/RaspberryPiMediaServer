@@ -316,6 +316,7 @@ async function videosToKodi(videos) {
 
             forKodi.TvShows.push({
                 'name':  video.name,
+                'id': video.id,
                 'thumb': 'http://image.tmdb.org/t/p/original' + video.poster_path,
                 'video': '',
                 'genre': 'N/A'
