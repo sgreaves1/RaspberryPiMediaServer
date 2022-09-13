@@ -1,0 +1,14 @@
+version: '3'
+services:
+  moviestub:
+    build:
+      context: .
+    container_name: movieStub
+    entrypoint: [ "npm", "run", "moviestub" ]
+    ports:
+      - 65535:65535
+    networks:
+      - movies
+networks:
+  movies:
+    driver: bridge
