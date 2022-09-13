@@ -1,0 +1,15 @@
+{
+  "name": "movieStub",
+  "version": "1.0.0",
+  "description": "Stub representing the movie db api",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Sam Greaves",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "literal-http-status": "^1.0.2"
+  }
+}

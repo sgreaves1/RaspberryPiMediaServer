@@ -1,8 +1,6 @@
 FROM node:10
 
-WORKDIR /app
-
-ADD . /app
+ADD . ./
 
 RUN npm install
 

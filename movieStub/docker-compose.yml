@@ -4,7 +4,7 @@ services:
     build:
       context: .
     container_name: movieStub
-    entrypoint: [ "npm", "run", "moviestub" ]
+    entrypoint: [ "npm", "start" ]
     ports:
       - 65535:65535
     networks:
