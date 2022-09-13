@@ -6,10 +6,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test specified yet\"",
+    "moviestub": "node movieStub/app.js",
     "backend": "node backend/myapi.js",
     "backend-local": "node backend/myapi.js Videos",
     "frontend": "react-scripts start",
-    "start": "npm run backend && npm run frontend"
+    "start": "npm run moviestub && npm run backend-local && npm run frontend"
   },
   "author": "Sam Greaves",
   "license": "ISC",
